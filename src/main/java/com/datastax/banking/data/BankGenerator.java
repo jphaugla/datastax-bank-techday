@@ -71,16 +71,11 @@ public class BankGenerator {
 			account.setCustomerId(customerId);
 			account.setAccountNo(UUID.randomUUID().toString());
 			account.setAccountType(accountTypes.get(i));
-			account.setBalance(Math.random() * 1000);
-			account.setCurrency("EUR");
-			account.setIban(new Double(Math.random() * 100000000d).intValue()	  + "");
-			account.setLastUpdateBalance(new Date());
 			
 			if (i == 3){
 				//add Joint account
 				customerIds.add(getRandomCustomerId(noOfCustomers));
 			}
-			account.setCustomers(customerIds);
 			accounts.add(account);
 			
 			//Keep a list of all Account Nos to create the transactions
@@ -132,7 +127,6 @@ public class BankGenerator {
 		Transaction transaction = new Transaction();
 		createItemsAndAmount(noOfItems, transaction);
 		transaction.setAccountNo(account.getAccountNo());
-		transaction.setCustomers(account.getCustomers());
 		transaction.setMerchant(issuer);
 		transaction.setTransactionId(UUID.randomUUID().toString());
 		transaction.setTransactionTime(newDate.toDate());
@@ -143,7 +137,6 @@ public class BankGenerator {
 	
 	/**
 	 * Creates a random transaction with some skew for some accounts.
-	 * @param noOfCreditCards
 	 * @return
 	 */
 	

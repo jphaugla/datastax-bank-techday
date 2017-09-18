@@ -34,6 +34,7 @@ public class BankGenerator {
 	public static DateTime date = new DateTime().minusDays(180).withTimeAtStartOfDay();
 	
 	public static List<String> whiteList = new ArrayList<String>();
+
 			
 
 	public static String getRandomCustomerId(int noOfCustomers){
@@ -51,30 +52,29 @@ public class BankGenerator {
 		
 		Customer customer = new Customer();
 		customer.setCustomerId(customerId);
-		customer.setFirst("First-" + customerId);
-		customer.setLast("Last-" + customerId);
+		customer.setFirstName("First-" + customerId);
+		customer.setLast_name("Last-" + customerId);
 		
 		return customer;
 	}
 	
-	public static List<Account> createRandomAccountsForCustomer(String customerId, int noOfCustomers) {
+	public static List<Account> createRandomAccountsForCustomer(Customer customer, int noOfCustomers) {
 		
 		int noOfAccounts = Math.random() < .1 ? 4 : 3;
-		
 		List<Account> accounts = new ArrayList<Account>();
-		Set<String> customerIds = new HashSet<String>();
-		customerIds.add(customerId);
+
+
 		
 		for (int i = 0; i < noOfAccounts; i++){
 			
 			Account account = new Account();
-			account.setCustomerId(customerId);
+			account.defineAllCustomerColumns(customer);
 			account.setAccountNo(UUID.randomUUID().toString());
 			account.setAccountType(accountTypes.get(i));
 			
 			if (i == 3){
 				//add Joint account
-				customerIds.add(getRandomCustomerId(noOfCustomers));
+	//			customerIds.add(getRandomCustomerId(noOfCustomers));
 			}
 			accounts.add(account);
 			

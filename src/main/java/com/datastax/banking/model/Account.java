@@ -33,7 +33,8 @@ public class Account {
 	private String country_name;
 	private String created_by;
 	private Date created_datetime;
-	private String customer_nbr;
+	@Column(name="customer_nbr")
+	private String customerNbr;
 	private String date_of_birth;
 	private String first_name;
 	private String full_name;
@@ -62,6 +63,9 @@ public class Account {
 	public void setAccountNo(String accountNo) {
 		this.accountNo = accountNo;
 	}
+	public String getCustomerNbr() { return customerNbr; }
+	public void setCustomerNbr(String customerNbr) { this.customerNbr = customerNbr; }
+
 	public String getAccountType() {
 		return accountType;
 	}
@@ -73,6 +77,29 @@ public class Account {
 		phone.setPhone_number(phone_number);
 		phone.setPhone_type(phone_type);
 		this.phone_numbers.add(phone);
+	}
+
+
+
+	public String getFirst_name() {
+		return first_name;
+	}
+	 public void defineAllCustomerColumns(Customer customer) {
+		this.customerNbr = customer.getcustomer_nbr();
+		this.customerId = customer.getCustomerId();
+		this.phone_numbers = customer.getPhones();
+		this.first_name = customer.getFirstName();
+		this.last_name = customer.getLast_name();
+	}
+
+	public void setFirst_name(String first) {
+		this.first_name = first;
+	}
+	public String getLast_name() {
+		return last_name;
+	}
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 }
 

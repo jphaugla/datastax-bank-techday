@@ -32,12 +32,12 @@ customer_status text,
 customer_type text,
 date_of_birth text,
 email_address frozen<list<frozen<email>>>,
-first text,
+first_name text,
 full_name text,
 gender text,
 government_id text,
 government_id_type text,
-last text,
+last_name text,
 last_updated timestamp,
 last_updated_by text,
 middle_name text,
@@ -47,13 +47,10 @@ query_helper_column text,
 state_abbreviation text,
 zipcode text,
 zipcode4 text,
-	externalSystemIds map<text,text>,
-	social map<text,text>,
-	emails map<text,text>,	
-	phones map<text,text>,
-	accounts set<text>,
+phones text,
+emails text,
 	PRIMARY KEY(customer_id)
-) WITH compaction= { 'class': 'MemoryOnlyStrategy' }
+) WITH compaction= { 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
   AND compression = {'sstable_compression' : ''}
   AND caching = {'keys':'NONE', 'rows_per_partition':'NONE'};
 

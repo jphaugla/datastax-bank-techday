@@ -71,12 +71,13 @@ public class Customer {
 	private String date_of_birth;
 	@Frozen
 	private List<Email> email_address;
-	private String first;
+	@Column(name="first_name")
+	private String firstName;
 	private String full_name;
 	private String gender;
 	private String government_id;
 	private String government_id_type;
-	private String last;
+	private String last_name;
 	private Date last_updated;
 	private String last_updated_by;
 	private String middle_name;
@@ -87,11 +88,8 @@ public class Customer {
 	private String state_abbreviation;
 	private String zipcode;
 	private String zipcode4;
-	private Map<String,String> externalSystemIds;
-	private Map<String,String> social;
-	private Map<String,String> emails;
-	private Map<String,String> phones;
-	private Set<String> accounts;
+	private String phones;
+	private String emails;
 	
 	public String getCustomerId() {
 		return customerId;
@@ -99,27 +97,41 @@ public class Customer {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
-	public String getFirst() {
-		return first;
+	public String getAddress_line1() {
+		return address_line1;
 	}
-	public void setFirst(String first) {
-		this.first = first;
+	public void setAddress_line1(String addressline1) {
+		this.address_line1 = addressline1;
 	}
-	public String getLast() {
-		return last;
+	public String getAddress_line2() {
+		return address_line2;
 	}
-	public void setLast(String last) {
-		this.last = last;
+	public void setAddress_line2(String addressline2) {
+		this.address_line2 = addressline2;
 	}
-	public Map<String, String> getExternalSystemIds() {
-		return externalSystemIds;
+	public String getAddress_type() {
+		return address_type;
 	}
-
-	public Set<String> getAccounts() {
-		return accounts;
+	public void setAddress_type(String addresstype) {
+		this.address_type = addresstype;
 	}
-	public void setAccounts(Set<String> accounts) {
-		this.accounts = accounts;
+	public String getbill_pay_enrolled() {
+		return bill_pay_enrolled;
+	}
+	public void setbill_pay_enrolled(String billPayEnrolled) {
+		this.bill_pay_enrolled = billPayEnrolled;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String first) {
+		this.firstName = first;
+	}
+	public String getLast_name() {
+		return last_name;
+	}
+	public void setLast_name(String last) {
+		this.last_name = last;
 	}
 	public List<Email> getEmails() {
 		return email_address;
@@ -147,8 +159,14 @@ public class Customer {
 		this.email_address.add(email);
 	}
 	public void addEmail (Email email) {
+
 		this.email_address.add(email);
 	}
 
-
+	public String getcustomer_nbr() {
+		return this.customer_nbr;
+	}
+	 public void putcustomer_nbr(String input_cust) {
+		this.customer_nbr = input_cust;
+	}
 }

@@ -67,6 +67,44 @@ public class Account {
 	public void setAccount_status(String account_status) {
 		this.account_status = account_status;
 	}
+	public String getCreated_by() {
+		return created_by;
+	}
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+	public Date getCreated_datetime() {
+		return created_datetime;
+	}
+	public void setCreated_datetime(Date created_datetime) {
+		this.created_datetime = created_datetime;
+	}
+	public Date getlast_updated() {
+		return this.last_updated;
+	}
+	public void putlast_updated(Date last_updated) {
+		this.last_updated = last_updated;
+	}
+	public String getlast_updated_by() {
+		return this.last_updated_by;
+	}
+	public void putlast_updated_by(String updatedBy) {
+		this.last_updated_by = updatedBy;
+	}
+	public String getAccountType() {
+		return accountType;
+	}
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+	public String getAccountNo() {
+		return accountNo;
+	}
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+
+	// customer columns
 	public String getAddress_line1() {
 		return address_line1;
 	}
@@ -103,18 +141,6 @@ public class Account {
 	public void setCountry_name(String country_name) {
 		this.country_name = country_name;
 	}
-	public String getCreated_by() {
-		return created_by;
-	}
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
-	}
-	public Date getCreated_datetime() {
-		return created_datetime;
-	}
-	public void setCreated_datetime(Date created_datetime) {
-		this.created_datetime = created_datetime;
-	}
 	public String getDate_of_birth() {
 		return date_of_birth;
 	}
@@ -139,28 +165,28 @@ public class Account {
 	public void setGovernment_id_type(String government_id_type) {
 		this.government_id_type = government_id_type;
 	}
-	public Date getlast_updated() {
-		return this.last_updated;
+	public String getFirst_name() {
+		return first_name;
 	}
-	public void putlast_updated(Date last_updated) {
-		this.last_updated = last_updated;
+	public void setFirst_name(String first) {
+		this.first_name = first;
 	}
-	public String getlast_updated_by() {
-		return this.last_updated_by;
+	public String getLast_name() {
+		return last_name;
 	}
-	public void putlast_updated_by(String updatedBy) {
-		this.last_updated_by = updatedBy;
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 	public String getmiddle_name() {
 		return this.middle_name;
 	}
-	public void putmiddle_name(String middleName) {
+	public void setmiddle_name(String middleName) {
 		this.middle_name = middleName;
 	}
 	public String getprefix() {
 		return this.prefix;
 	}
-	public void putprefix(String prefix) {
+	public void setprefix(String prefix) {
 		this.prefix = prefix;
 	}
 	public String getstate_abbreviation() {
@@ -172,34 +198,29 @@ public class Account {
 	public String getzipcode() {
 		return this.zipcode;
 	}
-	public void putzipcode(String zipcode) {
+	public void setzipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-
 	public String getZipcode4() {
 		return this.zipcode4;
 	}
-	public void putzipcode4(String zipcode4) {
+	public void setzipcode4(String zipcode4) {
 		this.zipcode4 = zipcode4;
-	}
-	public String getAccountNo() {
-		return accountNo;
-	}
-	public void setAccountNo(String accountNo) {
-		this.accountNo = accountNo;
 	}
 	public String getCustomerNbr() { return customerNbr; }
 	public void setCustomerNbr(String customerNbr) { this.customerNbr = customerNbr; }
-
-	public String getAccountType() {
-		return accountType;
+	public void addPhone (String phone_number,String phone_type) {
+		Phone phone = new Phone();
+		phone.setPhone_number(phone_number);
+		phone.setPhone_type(phone_type);
+		this.phone_numbers.add(phone);
 	}
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
-	}
 
-	public String getFirst_name() {
-		return first_name;
+	public List<Phone> getPhone_numbers() {
+		return phone_numbers;
+	}
+	public void setPhone_numbers(List<Phone> phone_numbers) {
+		this.phone_numbers = phone_numbers;
 	}
 	public void defineAllCustomerColumns(Customer customer) {
 		this.customerNbr = customer.getcustomer_nbr();
@@ -222,29 +243,9 @@ public class Account {
 		this.middle_name = customer.getmiddle_name();
 		this.prefix = customer.getprefix();
 		this.country_code = customer.getCountry_code();
-	}
-	 public void addPhone (String phone_number,String phone_type) {
-		Phone phone = new Phone();
-		phone.setPhone_number(phone_number);
-		phone.setPhone_type(phone_type);
-		this.phone_numbers.add(phone);
+		this.date_of_birth = customer.getdate_of_birth();
 	}
 
 
-	public List<Phone> getPhone_numbers() {
-		return phone_numbers;
-	}
-	public void setPhone_numbers(List<Phone> phone_numbers) {
-		this.phone_numbers = phone_numbers;
-	}
-	public void setFirst_name(String first) {
-		this.first_name = first;
-	}
-	public String getLast_name() {
-		return last_name;
-	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
-	}
 }
 

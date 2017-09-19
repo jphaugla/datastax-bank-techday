@@ -99,11 +99,11 @@ public class BankGenerator {
 		customer.setFirstName(firstName);
 		customer.setLast_name(lastName);
 		customer.setmiddle_name(middleName);
-		customer.setfull_name(firstName + middleName + lastName);
+		customer.setfull_name(firstName + " " + middleName + " " + lastName);
 
 		customer.initializeEmail();
-		customer.addEmail(customerId + "gmail.com","work","valid");
-		customer.addEmail(customerId + "gmail.com","Home","DND");
+		customer.addEmail(customerId + "@gmail.com","work","valid");
+		customer.addEmail(customerId + "@gmail.com","Home","DND");
 		customer.initializePhone();
 		customer.addPhone(customerId + "w","work");
 		customer.addPhone(customerId + "h","home");

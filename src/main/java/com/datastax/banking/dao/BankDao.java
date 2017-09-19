@@ -51,9 +51,9 @@ public class BankDao {
 	private static final String GET_CUSTOMER_ACCOUNTS = "select * from " + accountsTable + " where customer_id = ?";
 	private static final String GET_TRANSACTIONS_BY_ID = "select * from " + transactionTable + " where account_no = ? and bucket = ?";
 	private static final String GET_TRANSACTIONS_BY_TIMES = "select * from " + transactionTable
-			+ " where account_no = ? and bucket = ? and transaction_time >= ? and transaction_time < ?";
+			+ " where account_no = ? and bucket = ? and tranPostDt >= ? and tranPostDt < ?";
 	private static final String GET_TRANSACTIONS_SINCE = "select * from " + transactionTable
-			+ " where account_no = ? and bucket = ? and transaction_time >= ?";
+			+ " where account_no = ? and bucket = ? and tranPostDt >= ?";
 	private static final String GET_ALL_ACCOUNT_CUSTOMERS = "select * from " + accountsTable;
 	
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");

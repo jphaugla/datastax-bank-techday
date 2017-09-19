@@ -61,7 +61,7 @@ public class Customer {
 	private String city;
 	private String country_code;
 	private String created_by;
-	private String created_datetime;
+	private Date created_datetime;
 	private String customer_nbr;
 	private String customer_origin_system;
 	private String customer_status;
@@ -86,7 +86,7 @@ public class Customer {
 	private String state_abbreviation;
 	private String zipcode;
 	private String zipcode4;
-	
+
 	public String getCustomerId() {
 		return customerId;
 	}
@@ -138,10 +138,10 @@ public class Customer {
 	public void setcreated_by(String createdBy) {
 		this.created_by = createdBy;
 	}
-	public String getcreated_datetime() {
+	public Date getcreated_datetime() {
 		return created_datetime;
 	}
-	public void setcreated_datetime(String createdDatetime) {
+	public void setcreated_datetime(Date createdDatetime) {
 		this.created_datetime = createdDatetime;
 	}
 	public void setFirstName(String first) {

@@ -238,23 +238,138 @@ public class Transaction {
 	}
 
 	public void defineAllCustomerColumns(Customer customer) {
-
-		this.first_name = customer.getFirstName();
-		this.last_name = customer.getLast_name();
-		this.middle_name = customer.getmiddle_name();
-		this.full_name = customer.getfull_name();
-		this.address_line1 = customer.getAddress_line1();
-		this.address_line2 = customer.getAddress_line2();
-		this.city = customer.getCity();
-		this.address_type = customer.getAddress_type();
-		this.country_code = customer.getCountry_code();
-		this.state_abbreviation = customer.getstate_abbreviation();
-		this.zipcode = customer.getzipcode();
-		this.zipcode4 = customer.getZipcode4();
-
+		if (customer != null) {
+			this.first_name = customer.getFirstName();
+			this.last_name = customer.getLast_name();
+			this.middle_name = customer.getmiddle_name();
+			this.full_name = customer.getfull_name();
+			this.address_line1 = customer.getAddress_line1();
+			this.address_line2 = customer.getAddress_line2();
+			this.city = customer.getCity();
+			this.address_type = customer.getAddress_type();
+			this.country_code = customer.getCountry_code();
+			this.state_abbreviation = customer.getstate_abbreviation();
+			this.zipcode = customer.getzipcode();
+			this.zipcode4 = customer.getZipcode4();
+		}
 	}
 
 	public enum Status {
 		CHECK, APPROVED, DECLINED, CLIENT_APPROVED, CLIENT_DECLINED, CLIENT_APPROVAL, TIMEOUT
+	}
+	
+	public String getmerchantCtygCd() {
+		return this.merchantCtygCd;
+	}
+	public void setmerchantCtygCd(String merchantCtygCd) {
+		this.merchantCtygCd = merchantCtygCd;
+	}
+	public String getmerchantCtgyDesc() {
+		return this.merchantCtgyDesc;
+	}
+	public void setmerchantCtgyDesc(String merchantCtgyDesc) {
+		this.merchantCtgyDesc = merchantCtgyDesc;
+	}
+	public String getmerchant() {
+		return this.merchant;
+	}
+	public void setmerchant(String merchant) {
+		this.merchant = merchant;
+	}
+	public String getorigTranAmt() {
+		return this.origTranAmt;
+	}
+	public void setorigTranAmt(String origTranAmt) {
+		this.origTranAmt = origTranAmt;
+	}
+	public String getreferenceKeyType() {
+		return this.referenceKeyType;
+	}
+	public void setreferenceKeyType(String referenceKeyType) {
+		this.referenceKeyType = referenceKeyType;
+	}
+	public String getreferenceKeyValue() {
+		return this.referenceKeyValue;
+	}
+	public void setreferenceKeyValue(String referenceKeyValue) {
+		this.referenceKeyValue = referenceKeyValue;
+	}
+	public Double gettranAmt() {
+		return this.tranAmt;
+	}
+	public void settranAmt(Double tranAmt) {
+		this.tranAmt = tranAmt;
+	}
+	public String gettranCd() {
+		return this.tranCd;
+	}
+	public void settranCd(String tranCd) {
+		this.tranCd = tranCd;
+	}
+	public String gettranDescription() {
+		return this.tranDescription;
+	}
+	public void settranDescription(String tranDescription) {
+		this.tranDescription = tranDescription;
+	}
+	public String gettranExpDt() {
+		return this.tranExpDt;
+	}
+	public void settranExpDt(String tranExpDt) {
+		this.tranExpDt = tranExpDt;
+	}
+	public Date gettranInitDt() {
+		return this.tranInitDt;
+	}
+	public void settranInitDt(Date tranInitDt) {
+		this.tranInitDt = tranInitDt;
+	}
+	public String gettranStat() {
+		return this.tranStat;
+	}
+	public void settranStat(String tranStat) {
+		this.tranStat = tranStat;
+	}
+	public String gettranType() {
+		return this.tranType;
+	}
+	public void settranType(String tranType) {
+		this.tranType = tranType;
+	}
+	public String gettransRsnCd() {
+		return this.transRsnCd;
+	}
+	public void settransRsnCd(String transRsnCd) {
+		this.transRsnCd = transRsnCd;
+	}
+	public String gettransRsnDesc() {
+		return this.transRsnDesc;
+	}
+	public void settransRsnDesc(String transRsnDesc) {
+		this.transRsnDesc = transRsnDesc;
+	}
+	public String gettransRsnType() {
+		return this.transRsnType;
+	}
+	public void settransRsnType(String transRsnType) {
+		this.transRsnType = transRsnType;
+	}
+	public String gettransRespCd() {
+		return this.transRespCd;
+	}
+	public void settransRespCd(String transRespCd) {
+		this.transRespCd = transRespCd;
+	}
+	public String gettransRespDesc() {
+		return this.transRespDesc;
+	}
+	public void settransRespDesc(String transRespDesc) {
+		this.transRespDesc = transRespDesc;
+	}
+	public String gettransRespType() {
+		return this.transRespType;
+	}
+	public void settransRespType(String transRespType) {
+		this.transRespType = transRespType;
 	}
 }

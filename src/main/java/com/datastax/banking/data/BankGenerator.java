@@ -54,11 +54,11 @@ public class BankGenerator {
 		customer.setAddress_line1("Line1-" + customerId);
 		customer.setcreated_by("Java Test");
         customer.setlast_updated_by("Java Test");
+        customer.setcustomer_type("Retail");
 
-        /*
-		customer.setcreated_datetime(timeStamp);
+		customer.setcreated_datetime(currentDate);
 		customer.setlast_updated(currentDate);
-		*/
+
 		customer.setcustomer_nbr(customerId);
 		customer.setcustomer_origin_system("RCIF");
 		customer.setcustomer_status("A");
@@ -83,7 +83,7 @@ public class BankGenerator {
 		customer.setCity(locations.get(lastDigit));
 		customer.setstate_abbreviation(States.get(lastDigit));
 		customer.setdate_of_birth(dob.get(lastDigit));
-		String lastName = customerId.substring(2,4);
+		String lastName = customerId.substring(2,6);
 		String firstName = firstList.get(lastDigit);
 		String middleName = middleList.get(lastDigit);
 		customer.setgender(genderList.get(lastDigit));
@@ -95,7 +95,7 @@ public class BankGenerator {
         }
 		String zipChar = zipcodeList.get(lastDigit).toString();
 		customer.setzipcode(zipChar);
-		customer.setzipcode4(zipChar + lastName);
+		customer.setzipcode4(zipChar + "1234");
 		customer.setFirstName(firstName);
 		customer.setLast_name(lastName);
 		customer.setmiddle_name(middleName);
@@ -154,6 +154,9 @@ public class BankGenerator {
 
 		//Random account	
 		String customerId = getRandomCustomerId(noOfCustomers);
+		//  grab the customer information for this customerID
+		Customer customer = bankService.getCustomer(customerId);
+
 
 		List<Account> accounts;
 		if (accountsMap.containsKey(customerId)){
@@ -188,6 +191,7 @@ public class BankGenerator {
 		transaction.setTransactionTime(newDate.toDate());
 		transaction.setLocation(location);
 		transaction.setTags(tags);
+		transaction.defineAllCustomerColumns(customer);
 		return transaction;
 	}
 	
@@ -229,10 +233,29 @@ public class BankGenerator {
     public static List<String> firstList = Arrays.asList("Jason", "Catherine", "Esmeralda", "Marcus", "Louisa",
             "Julia", "Miles", "Luis", "Igor", "Angela");
 
-	public static List<String> issuers = Arrays.asList("Tesco", "Sainsbury", "Asda Wal-Mart Stores", "Morrisons",
-			"Marks & Spencer", "Boots", "John Lewis", "Waitrose", "Argos", "Co-op", "Currys", "PC World", "B&Q",
-			"Somerfield", "Next", "Spar", "Amazon", "Costa", "Starbucks", "BestBuy", "Wickes", "TFL", "National Rail",
+	public static List<String> issuers = Arrays.asList("Tesco", "Sainsbury", "Wal-Mart Stores",
+            "Morrisons",
+			"Marks & Spencer", "Walmart", "John Lewis", "Cub Foods", "Argos", "Co-op", "Currys", "PC World", "B&Q",
+			"Somerfield", "Next", "Spar", "Amazon", "Costa", "Starbucks", "BestBuy", "Lowes", "BarnesNoble",
+            "Carlson Wagonlit Travel",
 			"Pizza Hut", "Local Pub");
+
+    public static List<String> issuersCD = Arrays.asList("5411", "5411", "5310", "5499",
+            "5310", "5912", "5311", "5411", "5961", "5300", "5732", "5964", "5719",
+            "5411", "5651", "5411", "5310", "5691", "5814", "5732", "5211", "5942", "5962",
+            "5814", "5813");
+
+    public static List<String> issuersCDdesc = Arrays.asList("Grocery Stores", "Grocery Stores",
+            "Discount Stores", "Misc. Food Stores – Convenience Stores and Specialty Markets",
+            "Discount Stores", "Drug Stores and Pharmacies", "Department Stores", "Supermarkets", "Mail Order Houses",
+            "Wholesale Clubs", "Electronic Sales",
+            "Direct Marketing – Catalog Merchant", "Miscellaneous Home Furnishing Specialty Stores",
+            "Grocery Stores", "Family Clothing Stores", "Grocery Stores", "Discount Stores", "Men’s and Women’s Clothing Stores",
+            "Fast Food Restaurants",
+            "Electronic Sales",
+            "Lumber and Building Materials Stores",
+            "Book Stores", "Direct Marketing – Travel Related Arrangements Services",
+            "Fast Food Restaurants", "Drinking Places, Bars, Taverns, Cocktail lounges, Nightclubs and Discotheques");
 
 	public static List<String> notes = Arrays.asList("Shopping", "Shopping", "Shopping", "Shopping", "Shopping",
 			"Pharmacy", "HouseHold", "Shopping", "Household", "Shopping", "Tech", "Tech", "Diy", "Shopping", "Clothes",

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,10 @@ import com.datastax.driver.core.Session;
 import com.datastax.driver.mapping.Mapper;
 import com.datastax.driver.mapping.MappingManager;
 import com.datastax.driver.mapping.Result;
+import com.datastax.driver.mapping.Mapper.Option;
+
+import static com.datastax.driver.mapping.Mapper.Option.saveNullFields;
+import static com.datastax.driver.mapping.Mapper.Option.tracing;
 
 /**
  * Inserts into 2 tables
@@ -81,8 +86,11 @@ public class BankDao {
 		this.getCustomerAccounts = session.prepare(GET_CUSTOMER_ACCOUNTS);
 		
 		customerMapper = new MappingManager(this.session).mapper(Customer.class);
+		customerMapper.setDefaultSaveOptions(saveNullFields(false));
 		accountMapper = new MappingManager(this.session).mapper(Account.class);
+		accountMapper.setDefaultSaveOptions(saveNullFields(false));
 		transactionMapper = new MappingManager(this.session).mapper(Transaction.class);
+		transactionMapper.setDefaultSaveOptions(saveNullFields(false));
 	}
 	
 	public Map<String, Set<String>> getAccountCustomers(){

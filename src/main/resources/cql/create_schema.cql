@@ -25,8 +25,6 @@ country_code text,
 created_by text,
 created_datetime timestamp,
 customer_nbr text,
-customer_id_list list<text>,
-customer_id_set set<text>,
 customer_origin_system text,
 customer_status text,
 customer_type text,
@@ -47,8 +45,6 @@ query_helper_column text,
 state_abbreviation text,
 zipcode text,
 zipcode4 text,
-phones text,
-emails text,
 	PRIMARY KEY(customer_id)
 ) WITH compaction= { 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
   AND compression = {'sstable_compression' : ''}
@@ -88,20 +84,6 @@ create table if not exists account(
   AND compression = {'sstable_compression' : ''}
   AND caching = {'keys':'NONE', 'rows_per_partition':'NONE'};
 
-create table if not exists customer_addresses(
-	customer_id text,
-	address_type text,
-	details map<text,text>,	
-	PRIMARY KEY((customer_id), address_type)
-);
-
-create table if not exists customer_interactions(
-	customer_id text,
-	interaction_time timestamp,
-	page text,
-	action text,
-	PRIMARY KEY(customer_id, interaction_time)
-)WITH CLUSTERING order by (interaction_time desc);
 
 create table if not exists transaction(
 	account_no text,

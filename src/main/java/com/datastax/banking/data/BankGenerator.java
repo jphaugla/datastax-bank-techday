@@ -1,5 +1,6 @@
 package com.datastax.banking.data;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -32,6 +33,8 @@ public class BankGenerator {
 	
 	//We can change this from the Main
 	public static DateTime date = new DateTime().minusDays(180).withTimeAtStartOfDay();
+	public static Date currentDate = new Date();
+	public static String  timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(currentDate);
 	
 	public static List<String> whiteList = new ArrayList<String>();
 
@@ -44,17 +47,68 @@ public class BankGenerator {
 	public static Customer createRandomCustomer(int noOfCustomers) {
 		
 		String customerId = BASE + customerIdGenerator.getAndIncrement() + "";
-		Map<String, String> emails = new HashMap<String, String>();
-		Map<String, String> social = new HashMap<String, String>();
 
-		emails.put("work", customerId + "@gmail.com");
-		social.put("twitter", "Tweet" + customerId);
-		
 		Customer customer = new Customer();
 		customer.setCustomerId(customerId);
-		customer.setFirstName("First-" + customerId);
-		customer.setLast_name("Last-" + customerId);
-		
+
+		customer.setAddress_line1("Line1-" + customerId);
+		customer.setcreated_by("Java Test");
+        customer.setlast_updated_by("Java Test");
+
+        /*
+		customer.setcreated_datetime(timeStamp);
+		customer.setlast_updated(currentDate);
+		*/
+		customer.setcustomer_nbr(customerId);
+		customer.setcustomer_origin_system("RCIF");
+		customer.setcustomer_status("A");
+		customer.setCountry_code("00");
+        customer.setgovernment_id_type("TIN");
+        customer.setgovernment_id(customerId.substring(1));
+
+		int lastDigit = Integer.parseInt(customerId.substring(6));
+		if (lastDigit>7) {
+			customer.setAddress_line2("Apt " + customerId);
+			customer.setAddress_type("Apartment");
+			customer.setbill_pay_enrolled("false");
+		}
+		else if (lastDigit==3){
+			customer.setbill_pay_enrolled("false");
+			customer.setAddress_type("Mobile");
+		}
+		else {
+			customer.setAddress_type("Residence");
+			customer.setbill_pay_enrolled("true");
+		}
+		customer.setCity(locations.get(lastDigit));
+		customer.setstate_abbreviation(States.get(lastDigit));
+		customer.setdate_of_birth(dob.get(lastDigit));
+		String lastName = customerId.substring(2,4);
+		String firstName = firstList.get(lastDigit);
+		String middleName = middleList.get(lastDigit);
+		customer.setgender(genderList.get(lastDigit));
+		if (genderList.get(lastDigit)=="F"){
+		    customer.setprefix("Ms");
+        }
+        else {
+            customer.setprefix("Mr");
+        }
+		String zipChar = zipcodeList.get(lastDigit).toString();
+		customer.setzipcode(zipChar);
+		customer.setzipcode4(zipChar + lastName);
+		customer.setFirstName(firstName);
+		customer.setLast_name(lastName);
+		customer.setmiddle_name(middleName);
+		customer.setfull_name(firstName + middleName + lastName);
+
+		customer.initializeEmail();
+		customer.addEmail(customerId + "gmail.com","work","valid");
+		customer.addEmail(customerId + "gmail.com","Home","DND");
+		customer.initializePhone();
+		customer.addPhone(customerId + "w","work");
+		customer.addPhone(customerId + "h","home");
+		customer.addPhone(customerId + "c","cell");
+
 		return customer;
 	}
 	
@@ -71,6 +125,8 @@ public class BankGenerator {
 			account.defineAllCustomerColumns(customer);
 			account.setAccountNo(UUID.randomUUID().toString());
 			account.setAccountType(accountTypes.get(i));
+			account.setCountry_name("USA");
+			account.setAccount_status("Open");
 			
 			if (i == 3){
 				//add Joint account
@@ -154,8 +210,24 @@ public class BankGenerator {
 		transaction.setAmount(totalAmount);
 	}
 	
-	public static List<String> locations = Arrays.asList("London", "Manchester", "Liverpool", "Glasgow", "Dundee",
-			"Birmingham", "Dublin", "Devon");
+	public static List<String> locations = Arrays.asList("Chicago", "Minneapolis", "St. Paul", "Plymouth", "Edina",
+			"Duluth", "Bloomington", "Bloomington", "Rockford", "Champaign");
+    public static List<Integer> zipcodeList = Arrays.asList(60601, 55401, 55101, 55441, 55435,
+            55802, 61704, 55435, 61101, 16821);
+	public static List<String> dob = Arrays.asList("08/19/1964", "07/14/1984", "01/20/2000", "06/10/1951", "11/22/1995",
+			"12/13/1954", "08/12/1943", "11/29/1964", "02/01/1994", "07/12/1944");
+
+	public static List<String> States = Arrays.asList("IL", "MN", "MN", "MN", "MN",
+			"MN", "IL", "MN", "MN", "IL");
+
+    public static List<String> genderList = Arrays.asList("M", "F", "F", "M", "F",
+            "F", "M", "M", "M", "F");
+
+    public static List<String> middleList = Arrays.asList("Paul", "Ann", "Mary", "Joseph", "Amy",
+            "Elizabeth", "John", "Javier", "Golov", "Eliza");
+
+    public static List<String> firstList = Arrays.asList("Jason", "Catherine", "Esmeralda", "Marcus", "Louisa",
+            "Julia", "Miles", "Luis", "Igor", "Angela");
 
 	public static List<String> issuers = Arrays.asList("Tesco", "Sainsbury", "Asda Wal-Mart Stores", "Morrisons",
 			"Marks & Spencer", "Boots", "John Lewis", "Waitrose", "Argos", "Co-op", "Currys", "PC World", "B&Q",

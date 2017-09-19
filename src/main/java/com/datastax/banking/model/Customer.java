@@ -1,9 +1,9 @@
 package com.datastax.banking.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 
 import com.datastax.driver.mapping.annotations.*;
 
@@ -63,8 +63,6 @@ public class Customer {
 	private String created_by;
 	private String created_datetime;
 	private String customer_nbr;
-	private List<String> customer_id_list;
-	private Set<String> customer_id_set;
 	private String customer_origin_system;
 	private String customer_status;
 	private String customer_type;
@@ -88,8 +86,6 @@ public class Customer {
 	private String state_abbreviation;
 	private String zipcode;
 	private String zipcode4;
-	private String phones;
-	private String emails;
 	
 	public String getCustomerId() {
 		return customerId;
@@ -121,8 +117,32 @@ public class Customer {
 	public void setbill_pay_enrolled(String billPayEnrolled) {
 		this.bill_pay_enrolled = billPayEnrolled;
 	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCountry_code() {
+		return country_code;
+	}
+	public void setCountry_code(String country_code) {
+		this.country_code = country_code;
+	}
 	public String getFirstName() {
 		return firstName;
+	}
+	public String getcreated_by() {
+		return created_by;
+	}
+	public void setcreated_by(String createdBy) {
+		this.created_by = createdBy;
+	}
+	public String getcreated_datetime() {
+		return created_datetime;
+	}
+	public void setcreated_datetime(String createdDatetime) {
+		this.created_datetime = createdDatetime;
 	}
 	public void setFirstName(String first) {
 		this.firstName = first;
@@ -133,16 +153,22 @@ public class Customer {
 	public void setLast_name(String last) {
 		this.last_name = last;
 	}
-	public List<Email> getEmails() {
+	public List<Email> getEmail_address() {
 		return email_address;
 	}
-	public void setEmails(List<Email> email_list) {
+	public void initializeEmail() {
+		this.email_address = new ArrayList<Email>();
+	}
+	public void initializePhone() {
+		this.phone_numbers = new ArrayList<Phone>();
+	}
+	public void setEmail_address(List<Email> email_list) {
 		this.email_address = email_list;
 	}
-	public List<Phone> getPhones() {
+	public List<Phone> getPhone_numbers() {
 		return phone_numbers;
 	}
-	public void setPhones(List<Phone> phone_numbers) {
+	public void setPhone_numbers(List<Phone> phone_numbers) {
 		this.phone_numbers = phone_numbers;
 	}
 	public void addPhone (String phone_number,String phone_type) {
@@ -166,7 +192,104 @@ public class Customer {
 	public String getcustomer_nbr() {
 		return this.customer_nbr;
 	}
-	 public void putcustomer_nbr(String input_cust) {
+	 public void setcustomer_nbr(String input_cust) {
 		this.customer_nbr = input_cust;
+	}
+	public String getcustomer_origin_system() {
+		return this.customer_origin_system;
+	}
+	public void setcustomer_origin_system(String originSystem) {
+		this.customer_origin_system = originSystem;
+	}
+	public String getcustomer_status() {
+		return this.customer_status;
+	}
+	public void setcustomer_status(String custStatus) {
+		this.customer_status = custStatus;
+	}
+	public String getcustomer_type() {
+		return this.customer_type;
+	}
+	public void setcustomer_type(String custType) {
+		this.customer_type = custType;
+	}
+	public String getdate_of_birth() {
+		return this.date_of_birth;
+	}
+	public void setdate_of_birth(String dob) {
+		this.date_of_birth = dob;
+	}
+	public String getfull_name() {
+		return this.full_name;
+	}
+	public void setfull_name(String fullName) {
+		this.full_name = fullName;
+	}
+	public String getgender() {
+		return this.gender;
+	}
+	public void setgender(String gender) {
+		this.gender = gender;
+	}
+	public String getgovernment_id() {
+		return this.government_id;
+	}
+	public void setgovernment_id(String government_id) {
+		this.government_id = government_id;
+	}
+	public String getgovernment_id_type() {
+		return this.government_id_type;
+	}
+	public void setgovernment_id_type(String government_id_type) {
+		this.government_id_type = government_id_type;
+	}
+	public Date getlast_updated() {
+		return this.last_updated;
+	}
+	public void setlast_updated(Date last_updated) {
+		this.last_updated = last_updated;
+	}
+	public String getlast_updated_by() {
+		return this.last_updated_by;
+	}
+	public void setlast_updated_by(String updatedBy) {
+		this.last_updated_by = updatedBy;
+	}
+	public String getmiddle_name() {
+		return this.middle_name;
+	}
+	public void setmiddle_name(String middleName) {
+		this.middle_name = middleName;
+	}
+	public String getprefix() {
+		return this.prefix;
+	}
+	public void setprefix(String prefix) {
+		this.prefix = prefix;
+	}
+	public String getquery_helper_column() {
+		return this.query_helper_column;
+	}
+	public void setquery_helper_column(String query_helper_column) {
+		this.query_helper_column = query_helper_column;
+	}
+	public String getstate_abbreviation() {
+		return this.state_abbreviation;
+	}
+	public void setstate_abbreviation(String state_abbreviation) {
+		this.state_abbreviation = state_abbreviation;
+	}
+	public String getzipcode() {
+		return this.zipcode;
+	}
+	public void setzipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public String getZipcode4() {
+		return this.zipcode4;
+	}
+	public void setzipcode4(String zipcode4) {
+		this.zipcode4 = zipcode4;
 	}
 }

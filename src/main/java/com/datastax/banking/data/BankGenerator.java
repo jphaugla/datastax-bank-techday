@@ -27,7 +27,8 @@ public class BankGenerator {
 	private static final int BASE = 1000000;
 	private static final int DAY_MILLIS = 1000 * 60 *60 * 24;
 	private static AtomicInteger customerIdGenerator = new AtomicInteger(1);
-	private static List<String> accountTypes = Arrays.asList("Current", "Joint Current", "Saving", "Mortgage", "E-Saving", "Deposit");
+	private static List<String> accountTypes = Arrays.asList("Current", "Joint Current", "Saving", "Mortgage",
+            "E-Saving", "Deposit");
 	private static List<String> accountIds = new ArrayList<String>();
 	private static Map<String, List<Account>> accountsMap = new HashMap<String, List<Account>>();
 	
@@ -83,7 +84,7 @@ public class BankGenerator {
 		customer.setCity(locations.get(lastDigit));
 		customer.setstate_abbreviation(States.get(lastDigit));
 		customer.setdate_of_birth(dob.get(lastDigit));
-		String lastName = customerId.substring(2,6);
+		String lastName = customerId.substring(2,7);
 		String firstName = firstList.get(lastDigit);
 		String middleName = middleList.get(lastDigit);
 		customer.setgender(genderList.get(lastDigit));
@@ -95,7 +96,7 @@ public class BankGenerator {
         }
 		String zipChar = zipcodeList.get(lastDigit).toString();
 		customer.setzipcode(zipChar);
-		customer.setzipcode4(zipChar + "1234");
+		customer.setzipcode4(zipChar + "-1234");
 		customer.setFirstName(firstName);
 		customer.setLast_name(lastName);
 		customer.setmiddle_name(middleName);
@@ -116,23 +117,30 @@ public class BankGenerator {
 		
 		int noOfAccounts = Math.random() < .1 ? 4 : 3;
 		List<Account> accounts = new ArrayList<Account>();
-
+		List<String> accountNoList = new ArrayList<String>();
 
 		
 		for (int i = 0; i < noOfAccounts; i++){
 			
 			Account account = new Account();
 			account.defineAllCustomerColumns(customer);
-			account.setAccountNo(UUID.randomUUID().toString());
+			String accountNumber = UUID.randomUUID().toString();
+			account.setAccountNo(accountNumber);
 			account.setAccountType(accountTypes.get(i));
 			account.setCountry_name("USA");
 			account.setAccount_status("Open");
+            account.setCreated_by("Java Test");
+            account.setlast_updated_by("Java Test");
+            account.setCreated_datetime(currentDate);
+            account.setLast_updated(currentDate);
+            accountNoList.add(accountNumber);
 			
 			if (i == 3){
 				//add Joint account
 	//			customerIds.add(getRandomCustomerId(noOfCustomers));
 			}
 			accounts.add(account);
+			customer.setCustaccounts(accountNoList);
 			
 			//Keep a list of all Account Nos to create the transactions
 			accountIds.add(account.getAccountNo());
@@ -155,7 +163,7 @@ public class BankGenerator {
 		//Random account	
 		String customerId = getRandomCustomerId(noOfCustomers);
 		//  grab the customer information for this customerID
-		Customer customer = bankService.getCustomer(customerId);
+		// Customer customer = bankService.getCustomer(customerId);
 
 
 		List<Account> accounts;
@@ -179,20 +187,51 @@ public class BankGenerator {
 		String issuer = issuers.get(randomLocation);
 		String note = notes.get(randomLocation);
 		String tag = tagList.get(randomLocation);
+		String merchantCtygCd = issuersCD.get(randomLocation);
+        String merchantCtygDesc = issuersCDdesc.get(randomLocation);
 		Set<String> tags = new HashSet<String>();
 		tags.add(note);
 		tags.add(tag);
+		Date aNewDate = newDate.toDate();
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(aNewDate);
 
 		Transaction transaction = new Transaction();
 		createItemsAndAmount(noOfItems, transaction);
 		transaction.setAccountNo(account.getAccountNo());
 		transaction.setMerchant(issuer);
 		transaction.setTransactionId(UUID.randomUUID().toString());
-		transaction.setTransactionTime(newDate.toDate());
+        transaction.setcardNum( UUID.randomUUID().toString());
+		transaction.setTransactionTime(aNewDate);
 		transaction.setLocation(location);
 		transaction.setTags(tags);
-		transaction.defineAllCustomerColumns(customer);
-		return transaction;
+		transaction.defineAllAccountColumns(account);
+		if(randomLocation<5) {
+            transaction.setamountType("Debit");
+        }
+        else{
+            transaction.setamountType("Credit");
+        }
+		
+        transaction.setmerchantCtygCd(merchantCtygCd);
+        transaction.setmerchantCtgyDesc(merchantCtygDesc);
+        transaction.setmerchant(issuer);
+
+        transaction.setreferenceKeyType("reftype");
+        transaction.setreferenceKeyValue("thisRef");
+
+        transaction.settranCd("tranCd1");
+        transaction.settranDescription("this is the transaction description");
+        transaction.settranExpDt(timeStamp);
+        transaction.settranInitDt(aNewDate);
+        transaction.settranStat("OK");
+        transaction.settranType("TranTyp1");
+        transaction.settransRsnCd("transRsnCd1");
+        transaction.settransRsnDesc("transRsnDesc");
+        transaction.settransRsnType("transRsnType");
+        transaction.settransRespCd("transRespCd");
+        transaction.settransRespDesc("transRespDesc");
+        transaction.settransRespType("transRespType");
+        return transaction;
 	}
 	
 	/**
@@ -212,6 +251,8 @@ public class BankGenerator {
 			totalAmount += amount;
 		}
 		transaction.setAmount(totalAmount);
+        transaction.setorigTranAmt(Double.toString(totalAmount));
+        transaction.settranAmt(totalAmount);
 	}
 	
 	public static List<String> locations = Arrays.asList("Chicago", "Minneapolis", "St. Paul", "Plymouth", "Edina",

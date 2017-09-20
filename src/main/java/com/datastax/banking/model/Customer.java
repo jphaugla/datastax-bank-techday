@@ -86,6 +86,7 @@ public class Customer {
 	private String state_abbreviation;
 	private String zipcode;
 	private String zipcode4;
+	private List<String> custaccounts;
 
 	public String getCustomerId() {
 		return customerId;
@@ -285,11 +286,16 @@ public class Customer {
 	public void setzipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-
 	public String getZipcode4() {
 		return this.zipcode4;
 	}
 	public void setzipcode4(String zipcode4) {
 		this.zipcode4 = zipcode4;
+	}
+	public List<String> getCustaccounts() {
+		return this.custaccounts;
+	}
+	public void setCustaccounts(List<String> accountList) {
+		this.custaccounts = accountList;
 	}
 }

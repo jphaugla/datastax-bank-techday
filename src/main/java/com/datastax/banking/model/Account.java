@@ -82,13 +82,13 @@ public class Account {
 	public Date getlast_updated() {
 		return this.last_updated;
 	}
-	public void putlast_updated(Date last_updated) {
+	public void setLast_updated(Date last_updated) {
 		this.last_updated = last_updated;
 	}
 	public String getlast_updated_by() {
 		return this.last_updated_by;
 	}
-	public void putlast_updated_by(String updatedBy) {
+	public void setlast_updated_by(String updatedBy) {
 		this.last_updated_by = updatedBy;
 	}
 	public String getAccountType() {
@@ -192,7 +192,7 @@ public class Account {
 	public String getstate_abbreviation() {
 		return this.state_abbreviation;
 	}
-	public void putstate_abbreviation(String state_abbreviation) {
+	public void setstate_abbreviation(String state_abbreviation) {
 		this.state_abbreviation = state_abbreviation;
 	}
 	public String getzipcode() {

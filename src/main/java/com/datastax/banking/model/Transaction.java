@@ -237,20 +237,22 @@ public class Transaction {
 		this.zipcode4 = zipcode4;
 	}
 
-	public void defineAllCustomerColumns(Customer customer) {
-		if (customer != null) {
-			this.first_name = customer.getFirstName();
-			this.last_name = customer.getLast_name();
-			this.middle_name = customer.getmiddle_name();
-			this.full_name = customer.getfull_name();
-			this.address_line1 = customer.getAddress_line1();
-			this.address_line2 = customer.getAddress_line2();
-			this.city = customer.getCity();
-			this.address_type = customer.getAddress_type();
-			this.country_code = customer.getCountry_code();
-			this.state_abbreviation = customer.getstate_abbreviation();
-			this.zipcode = customer.getzipcode();
-			this.zipcode4 = customer.getZipcode4();
+	public void defineAllAccountColumns(Account account) {
+		if (account != null) {
+			this.first_name = account.getFirst_name();
+			this.last_name = account.getLast_name();
+			this.middle_name = account.getmiddle_name();
+			this.full_name = account.getFull_name();
+			this.address_line1 = account.getAddress_line1();
+			this.address_line2 = account.getAddress_line2();
+			this.city = account.getCity();
+			this.address_type = account.getAddress_type();
+			this.country_code = account.getCountry_code();
+			this.country_name = account.getCountry_name();
+			this.state_abbreviation = account.getstate_abbreviation();
+			this.zipcode = account.getzipcode();
+			this.zipcode4 = account.getZipcode4();
+			this.accountNo = account.getAccountNo();
 		}
 	}
 

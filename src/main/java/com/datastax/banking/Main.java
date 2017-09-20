@@ -132,7 +132,6 @@ public class Main {
 		
 		for (int i=0; i < noOfCustomers; i++){
 			Customer customer = BankGenerator.createRandomCustomer(noOfCustomers);
-			dao.insertCustomer(customer);
 			List<Account> accounts = BankGenerator.createRandomAccountsForCustomer(customer, noOfCustomers);
 			Set<String> accountNos = new HashSet<String>();
 			
@@ -141,9 +140,8 @@ public class Main {
 				dao.insertAccount(account);
 				accountNos.add(account.getAccountNo());
 			}
-			
-			// customer.setAccounts(accountNos);
-
+			customer.setCustaccounts(accountNos);
+			dao.insertCustomer(customer);
 			
 			if (i == 1000){
 				sleep(100);

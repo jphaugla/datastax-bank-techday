@@ -45,7 +45,7 @@ query_helper_column text,
 state_abbreviation text,
 zipcode text,
 zipcode4 text,
-custaccounts list<text>,
+custaccounts set<text>,
 	PRIMARY KEY(customer_id)
 ) WITH compaction= { 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
   AND compression = {'sstable_compression' : ''}

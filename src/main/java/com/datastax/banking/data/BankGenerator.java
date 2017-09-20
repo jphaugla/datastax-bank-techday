@@ -117,7 +117,6 @@ public class BankGenerator {
 		
 		int noOfAccounts = Math.random() < .1 ? 4 : 3;
 		List<Account> accounts = new ArrayList<Account>();
-		List<String> accountNoList = new ArrayList<String>();
 
 		
 		for (int i = 0; i < noOfAccounts; i++){
@@ -133,14 +132,14 @@ public class BankGenerator {
             account.setlast_updated_by("Java Test");
             account.setCreated_datetime(currentDate);
             account.setLast_updated(currentDate);
-            accountNoList.add(accountNumber);
+
 			
 			if (i == 3){
 				//add Joint account
 	//			customerIds.add(getRandomCustomerId(noOfCustomers));
 			}
 			accounts.add(account);
-			customer.setCustaccounts(accountNoList);
+
 			
 			//Keep a list of all Account Nos to create the transactions
 			accountIds.add(account.getAccountNo());

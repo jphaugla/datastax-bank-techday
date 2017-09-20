@@ -3,6 +3,7 @@ package com.datastax.banking.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 
 import com.datastax.driver.mapping.annotations.*;
@@ -86,7 +87,7 @@ public class Customer {
 	private String state_abbreviation;
 	private String zipcode;
 	private String zipcode4;
-	private List<String> custaccounts;
+	private Set<String> custaccounts;
 
 	public String getCustomerId() {
 		return customerId;
@@ -292,10 +293,10 @@ public class Customer {
 	public void setzipcode4(String zipcode4) {
 		this.zipcode4 = zipcode4;
 	}
-	public List<String> getCustaccounts() {
+	public Set<String> getCustaccounts() {
 		return this.custaccounts;
 	}
-	public void setCustaccounts(List<String> accountList) {
+	public void setCustaccounts(Set<String> accountList) {
 		this.custaccounts = accountList;
 	}
 }

@@ -8,47 +8,8 @@ import java.util.Set;
 
 import com.datastax.driver.mapping.annotations.*;
 
-@UDT(name = "email", keyspace = "bank")
-class Email {
-	private String email_type;
-	private String email_address;
-	private String email_status;
-	public String getEmail_type() {
-		return email_type;
-	}
-	public void setEmail_type(String email_type) {
-		this.email_type = email_type;
-	}
-	public String getEmail_address() {
-		return email_address;
-	}
-	public void setEmail_address(String email_address) {
-		this.email_address = email_address;
-	}
-	public String getEmail_status() {
-		return email_status;
-	}
-	public void setEmail_status(String email_status) {
-		this.email_status = email_status;
-	}
-}
-@UDT(name = "phone", keyspace = "bank")
-class Phone {
-	private String phone_type;
-	private String phone_number;
-	public String getPhone_type() {
-		return phone_type;
-	}
-	public void setPhone_type(String phone_type) {
-		this.phone_type = phone_type;
-	}
-	public String getPhone_number() {
-		return phone_number;
-	}
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
-	}
-}
+
+
 
 @Table(keyspace = "bank", name = "customer")
 public class Customer {

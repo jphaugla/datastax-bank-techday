@@ -1,4 +1,4 @@
-DROP SEARCH INDEX on bank.customer;
+//DROP SEARCH INDEX on bank.customer;
 CREATE SEARCH INDEX if not exists
 ON bank.customer
 with columns address_line1
@@ -15,3 +15,10 @@ with columns address_line1
                 ,zipcode
 ;
 
+CREATE SEARCH INDEX if not exists
+ON bank.transaction
+with columns tranPostDt
+                ,merchantName
+		,merchantCtgyDesc
+		,cardNum
+;

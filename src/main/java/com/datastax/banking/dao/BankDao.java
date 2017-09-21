@@ -49,11 +49,11 @@ public class BankDao {
 	private static String accountsTable = keyspaceName + ".account";
 
 	private static final String GET_CUSTOMER_ACCOUNTS = "select * from " + accountsTable + " where customer_id = ?";
-	private static final String GET_TRANSACTIONS_BY_ID = "select * from " + transactionTable + " where account_no = ? and bucket = ?";
+	private static final String GET_TRANSACTIONS_BY_ID = "select * from " + transactionTable + " where account_no = ?";
 	private static final String GET_TRANSACTIONS_BY_TIMES = "select * from " + transactionTable
-			+ " where account_no = ? and bucket = ? and tranPostDt >= ? and tranPostDt < ?";
+			+ " where account_no = ? and tranPostDt >= ? and tranPostDt < ?";
 	private static final String GET_TRANSACTIONS_SINCE = "select * from " + transactionTable
-			+ " where account_no = ? and bucket = ? and tranPostDt >= ?";
+			+ " where account_no = ? and tranPostDt >= ?";
 	private static final String GET_ALL_ACCOUNT_CUSTOMERS = "select * from " + accountsTable;
 	
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
@@ -149,7 +149,7 @@ public class BankDao {
 
 	public List<Transaction> getTransactions(String accountId) {
 
-		ResultSetFuture rs = this.session.executeAsync(this.getTransactionByAccountId.bind(accountId, "1"));
+		ResultSetFuture rs = this.session.executeAsync(this.getTransactionByAccountId.bind(accountId));
 		
 		return this.processResultSet(rs.getUninterruptibly(), null);
 	}

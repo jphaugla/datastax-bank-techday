@@ -144,7 +144,7 @@ public class Customer {
 		Email email = new Email();
 		email.setEmail_address(email_address);
 		email.setEmail_type(email_type);
-		email.setEmail_status(email_type);
+		email.setEmail_status(email_status);
 		this.email_address.add(email);
 	}
 	public void addEmail (Email email) {

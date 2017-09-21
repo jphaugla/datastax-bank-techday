@@ -13,13 +13,13 @@
 
  customer_id | full_name
 -------------+-----------------------
-     1084542 |  Esmeralda Mary 84542
-     1084541 |   Catherine Ann 84541
      1084545 | Julia Elizabeth 84545
      1084540 |      Jason Paul 84540
+     1084546 |      Miles John 84546
+     1084542 |  Esmeralda Mary 84542
+     1084541 |   Catherine Ann 84541
      1084548 |      Igor Golov 84548
      1084547 |     Luis Javier 84547
-     1084546 |      Miles John 84546
      1084544 |      Louisa Amy 84544
      1084549 |    Angela Eliza 84549
      1084543 |   Marcus Joseph 84543
@@ -28,37 +28,37 @@
 
  customer_id | full_name             | government_id | email_address
 -------------+-----------------------+---------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     1074545 | Julia Elizabeth 74545 |        074545 | [{email_type: 'work', email_address: '1074545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1074545@gmail.com', email_status: 'Home'}]
-     1084545 | Julia Elizabeth 84545 |        084545 | [{email_type: 'work', email_address: '1084545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1084545@gmail.com', email_status: 'Home'}]
-     1064545 | Julia Elizabeth 64545 |        064545 | [{email_type: 'work', email_address: '1064545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1064545@gmail.com', email_status: 'Home'}]
-     1024545 | Julia Elizabeth 24545 |        024545 | [{email_type: 'work', email_address: '1024545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1024545@gmail.com', email_status: 'Home'}]
-     1004545 | Julia Elizabeth 04545 |        004545 | [{email_type: 'work', email_address: '1004545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1004545@gmail.com', email_status: 'Home'}]
-     1054545 | Julia Elizabeth 54545 |        054545 | [{email_type: 'work', email_address: '1054545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1054545@gmail.com', email_status: 'Home'}]
-     1014545 | Julia Elizabeth 14545 |        014545 | [{email_type: 'work', email_address: '1014545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1014545@gmail.com', email_status: 'Home'}]
-     1034545 | Julia Elizabeth 34545 |        034545 | [{email_type: 'work', email_address: '1034545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1034545@gmail.com', email_status: 'Home'}]
-     1044545 | Julia Elizabeth 44545 |        044545 | [{email_type: 'work', email_address: '1044545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1044545@gmail.com', email_status: 'Home'}]
-     1094545 | Julia Elizabeth 94545 |        094545 | [{email_type: 'work', email_address: '1094545@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1094545@gmail.com', email_status: 'Home'}]
+     1084545 | Julia Elizabeth 84545 |        084545 | [{email_type: 'work', email_address: '1084545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1084545@gmail.com', email_status: 'DND'}]
+     1064545 | Julia Elizabeth 64545 |        064545 | [{email_type: 'work', email_address: '1064545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1064545@gmail.com', email_status: 'DND'}]
+     1024545 | Julia Elizabeth 24545 |        024545 | [{email_type: 'work', email_address: '1024545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1024545@gmail.com', email_status: 'DND'}]
+     1004545 | Julia Elizabeth 04545 |        004545 | [{email_type: 'work', email_address: '1004545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1004545@gmail.com', email_status: 'DND'}]
+     1054545 | Julia Elizabeth 54545 |        054545 | [{email_type: 'work', email_address: '1054545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1054545@gmail.com', email_status: 'DND'}]
+     1014545 | Julia Elizabeth 14545 |        014545 | [{email_type: 'work', email_address: '1014545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1014545@gmail.com', email_status: 'DND'}]
+     1074545 | Julia Elizabeth 74545 |        074545 | [{email_type: 'work', email_address: '1074545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1074545@gmail.com', email_status: 'DND'}]
+     1044545 | Julia Elizabeth 44545 |        044545 | [{email_type: 'work', email_address: '1044545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1044545@gmail.com', email_status: 'DND'}]
+     1034545 | Julia Elizabeth 34545 |        034545 | [{email_type: 'work', email_address: '1034545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1034545@gmail.com', email_status: 'DND'}]
+     1094545 | Julia Elizabeth 94545 |        094545 | [{email_type: 'work', email_address: '1094545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1094545@gmail.com', email_status: 'DND'}]
 
 (10 rows)
 
- customer_id | full_name            | email_address
--------------+----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     1082686 |     Miles John 82686 | [{email_type: 'work', email_address: '1082686@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1082686@gmail.com', email_status: 'Home'}]
-     1039406 |     Miles John 39406 | [{email_type: 'work', email_address: '1039406@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1039406@gmail.com', email_status: 'Home'}]
-     1093967 |    Luis Javier 93967 | [{email_type: 'work', email_address: '1093967@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1093967@gmail.com', email_status: 'Home'}]
-     1060721 |  Catherine Ann 60721 | [{email_type: 'work', email_address: '1060721@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1060721@gmail.com', email_status: 'Home'}]
-     1045093 |  Marcus Joseph 45093 | [{email_type: 'work', email_address: '1045093@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1045093@gmail.com', email_status: 'Home'}]
-     1015491 |  Catherine Ann 15491 | [{email_type: 'work', email_address: '1015491@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1015491@gmail.com', email_status: 'Home'}]
-     1016598 |     Igor Golov 16598 | [{email_type: 'work', email_address: '1016598@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1016598@gmail.com', email_status: 'Home'}]
-     1088497 |    Luis Javier 88497 | [{email_type: 'work', email_address: '1088497@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1088497@gmail.com', email_status: 'Home'}]
-     1035932 | Esmeralda Mary 35932 | [{email_type: 'work', email_address: '1035932@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1035932@gmail.com', email_status: 'Home'}]
-     1053913 |  Marcus Joseph 53913 | [{email_type: 'work', email_address: '1053913@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1053913@gmail.com', email_status: 'Home'}]
+ customer_id | full_name             | email_address
+-------------+-----------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     1084545 | Julia Elizabeth 84545 | [{email_type: 'work', email_address: '1084545@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1084545@gmail.com', email_status: 'DND'}]
+     1058620 |      Jason Paul 58620 | [{email_type: 'work', email_address: '1058620@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1058620@gmail.com', email_status: 'DND'}]
+     1052732 |  Esmeralda Mary 52732 | [{email_type: 'work', email_address: '1052732@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1052732@gmail.com', email_status: 'DND'}]
+     1009988 |      Igor Golov 09988 | [{email_type: 'work', email_address: '1009988@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1009988@gmail.com', email_status: 'DND'}]
+     1062296 |      Miles John 62296 | [{email_type: 'work', email_address: '1062296@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1062296@gmail.com', email_status: 'DND'}]
+     1063979 |    Angela Eliza 63979 | [{email_type: 'work', email_address: '1063979@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1063979@gmail.com', email_status: 'DND'}]
+     1086242 |  Esmeralda Mary 86242 | [{email_type: 'work', email_address: '1086242@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1086242@gmail.com', email_status: 'DND'}]
+     1011466 |      Miles John 11466 | [{email_type: 'work', email_address: '1011466@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1011466@gmail.com', email_status: 'DND'}]
+     1090309 |    Angela Eliza 90309 | [{email_type: 'work', email_address: '1090309@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1090309@gmail.com', email_status: 'DND'}]
+     1016605 | Julia Elizabeth 16605 | [{email_type: 'work', email_address: '1016605@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1016605@gmail.com', email_status: 'DND'}]
 
 (10 rows)
 
  customer_id | full_name           | email_address                                                                                                                                                    | phone_numbers
 -------------+---------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------
-     1024541 | Catherine Ann 24541 | [{email_type: 'work', email_address: '1024541@gmail.com', email_status: 'work'}, {email_type: 'Home', email_address: '1024541@gmail.com', email_status: 'Home'}] | [{phone_type: 'work', phone_number: '1024541w'}, {phone_type: 'home', phone_number: '1024541h'}, {phone_type: 'cell', phone_number: '1024541c'}]
+     1024541 | Catherine Ann 24541 | [{email_type: 'work', email_address: '1024541@gmail.com', email_status: 'valid'}, {email_type: 'Home', email_address: '1024541@gmail.com', email_status: 'DND'}] | [{phone_type: 'work', phone_number: '1024541w'}, {phone_type: 'home', phone_number: '1024541h'}, {phone_type: 'cell', phone_number: '1024541c'}]
 
 (1 rows)
 
@@ -77,5 +77,11 @@
  customer_id | full_name        | phone_numbers
 -------------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------
      1014540 | Jason Paul 14540 | [{phone_type: 'work', phone_number: '1014540w'}, {phone_type: 'home', phone_number: '1014540h'}, {phone_type: 'cell', phone_number: '1014540c'}]
+
+(1 rows)
+
+ customer_id | custaccounts
+-------------+--------------------------------------------------------------------------------------------------------------------------
+     1084545 | {'44ba4d82-6f5b-4381-9f3e-ccee0e89099f', '54770c02-d081-4e16-a538-797cf5cf5e26', 'a5c17c33-b941-4be1-ae11-eea28355c462'}
 
 (1 rows)

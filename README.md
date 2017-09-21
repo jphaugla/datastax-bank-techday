@@ -45,4 +45,49 @@ To remove the tables and the schema, run the following.
 
     mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaTeardown"
     
-     
+To create DSE Search environment, run the following in cqlsh.
+
+    CREATE SEARCH INDEX if not exists
+	ON bank.customer
+	with columns address_line1
+                ,city
+                ,email_address
+                ,first_name
+                ,full_name
+                ,last_name
+                ,middle_name
+		,government_id
+		,government_id_type
+                ,phone_numbers
+                ,state_abbreviation
+                ,zipcode
+		,custaccounts;
+    CREATE SEARCH INDEX if not exists
+	ON bank.transaction
+	with columns tranPostDt
+                ,merchantName
+		,merchantCtgyDesc
+		,cardNum;
+
+Some queries below on customer table.
+	
+	select customer_id,full_name from bank.customer where customer_id = '1084545';
+	select customer_id,full_name from bank.customer where solr_query = 'last_name:84545';
+	select customer_id,full_name from bank.customer where solr_query = 'last_name:8454*';
+	select customer_id,full_name,government_id, email_address from bank.customer where solr_query = 'government_id:*4545';
+	select customer_id,full_name,email_address from bank.customer where solr_query = '{!tuple}email_address.email_type:Home'; 
+	select customer_id,full_name,email_address,phone_numbers from bank.customer where solr_query = '{!tuple}email_address.email_address:*24541';
+	select customer_id,full_name,phone_numbers from bank.customer where solr_query = '{!tuple}phone_numbers.phone_number:*14540h';
+	select customer_id,full_name,address_line1,address_line2,city,state_abbreviation,zipcode from bank.customer where solr_query = 'address_line1:*14543';
+	select customer_id,full_name,phone_numbers from bank.customer where solr_query = 'full_name:Jason* AND {!tuple}phone_numbers.phone_number:*14540w';
+	select customer_id,custaccounts from bank.customer where solr_query = 'custaccounts:"44ba4d82-6f5b-4381-9f3e-ccee0e89099f"';
+
+Some queries below on transactions table.
+	
+	select account_no,tranid,cardnum from bank.transaction where account_no = '4626b219-a324-4ad5-89f1-a9a0d114fb78';
+	select account_no,tranid,cardnum
+	from bank.transaction where solr_query  = 'cardnum:bccfcec5-9837-403d-9d18-26cad571125e';
+	select account_no,tranid,merchantctgydesc from bank.transaction where solr_query = 'merchantctgydesc:"Grocery Stores"';
+	select tranpostdt,account_no,tranid,cardnum from bank.transaction where solr_query = 'tranpostdt:[2017-08-26T00:00:00Z TO 2017-09-29T00:00:00Z]';
+	select merchantname,tranpostdt from bank.transaction where solr_query = 'merchantname:"Cub Foods"';
+		

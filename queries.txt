@@ -38,20 +38,7 @@ where solr_query = 'address_line1:*14543';
 select customer_id,full_name,phone_numbers
 from bank.customer
 where solr_query = 'full_name:Jason* AND {!tuple}phone_numbers.phone_number:*14540w';
-//where solr_query = {!tuple v='phone_numbers.phone_number:1014540w'}; 
-// where solr_query = 'full_name:Jason*';
-// 
-//Prep Needed
-//-          Table structure – already given
-//-          Mock Data – Divya/Harish(CSV file in progress, 9/12)
-// 
-//Customer Updates to  demonstrate latency (search immediate after updating to demonstrate latency)
-//-          On index columns
-//-          Non-index columns
-// 
-//Transactions Search: (for a given customer)
-//-          Account Number or Card Number
-//-          Transaction Date (range)
-//-          Merchant
-//-          Description
-//
+//-          customer accounts in customer
+select customer_id,custaccounts
+from bank.customer
+where solr_query = 'custaccounts:"44ba4d82-6f5b-4381-9f3e-ccee0e89099f"';

@@ -42,7 +42,7 @@ public class Transaction {
 	private String	zipcode4;
 	private String	merchantCtygCd;
 	private String	merchantCtgyDesc;
-	@Column(name = "merchantName")
+	@Column(name = "merchantname")
 	private String	merchant;
 	private String	origTranAmt;
 	private String	referenceKeyType;
@@ -115,14 +115,6 @@ public class Transaction {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
-
-	public String getMerchant() {
-		return merchant;
-	}
-
-	public void setMerchant(String merchant) {
-		this.merchant = merchant;
 	}
 
 	public Double getAmount() {
@@ -272,10 +264,10 @@ public class Transaction {
 	public void setmerchantCtgyDesc(String merchantCtgyDesc) {
 		this.merchantCtgyDesc = merchantCtgyDesc;
 	}
-	public String getmerchant() {
+	public String getMerchant() {
 		return this.merchant;
 	}
-	public void setmerchant(String merchant) {
+	public void setMerchant(String merchant) {
 		this.merchant = merchant;
 	}
 	public String getorigTranAmt() {

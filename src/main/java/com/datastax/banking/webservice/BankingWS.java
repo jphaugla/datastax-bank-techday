@@ -60,5 +60,14 @@ public class BankingWS {
 		
 		return Response.status(Status.OK).entity(transactions).build();
 	}
+	@GET
+	@Path("/get/categorydescrip/{mrchntctgdesc}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTransactionsCTGDESC(@PathParam("mrchntctgdesc") String mrchntctgdesc) {
+
+		List<Transaction> transactions = bankService.getTransactionsCTGDESC(mrchntctgdesc);
+
+		return Response.status(Status.OK).entity(transactions).build();
+	}
 	
 }

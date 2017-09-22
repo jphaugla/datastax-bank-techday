@@ -213,7 +213,7 @@ public class BankGenerator {
 		
         transaction.setmerchantCtygCd(merchantCtygCd);
         transaction.setmerchantCtgyDesc(merchantCtygDesc);
-        transaction.setmerchant(issuer);
+        transaction.setMerchant(issuer);
 
         transaction.setreferenceKeyType("reftype");
         transaction.setreferenceKeyValue("thisRef");

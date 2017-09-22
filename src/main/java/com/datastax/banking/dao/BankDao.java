@@ -49,7 +49,10 @@ public class BankDao {
 	private static String accountsTable = keyspaceName + ".account";
 
 	private static final String GET_CUSTOMER_ACCOUNTS = "select * from " + accountsTable + " where customer_id = ?";
+	private static final String GET_TRANSACTIONS_BY_MSGDESC = "select * from " + transactionTable +
+			" where solr_query = 'merchantctgydesc:? = ?";
 	private static final String GET_TRANSACTIONS_BY_ID = "select * from " + transactionTable + " where account_no = ?";
+
 	private static final String GET_TRANSACTIONS_BY_TIMES = "select * from " + transactionTable
 			+ " where account_no = ? and tranPostDt >= ? and tranPostDt < ?";
 	private static final String GET_TRANSACTIONS_SINCE = "select * from " + transactionTable
@@ -59,6 +62,7 @@ public class BankDao {
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 	
 	private PreparedStatement getTransactionByAccountId;
+	private PreparedStatement getTransactionByMsgDesc;
 	private PreparedStatement getTransactionBetweenTimes;
 	private PreparedStatement getTransactionSinceTime;
 	private PreparedStatement getLatestTransactionByCCno;
@@ -80,6 +84,7 @@ public class BankDao {
 		this.session = cluster.connect();
 
 		this.getTransactionByAccountId = session.prepare(GET_TRANSACTIONS_BY_ID);
+		this.getTransactionByMsgDesc = session.prepare(GET_TRANSACTIONS_BY_ID);
 		this.getTransactionBetweenTimes = session.prepare(GET_TRANSACTIONS_BY_TIMES);
 		this.getTransactionSinceTime = session.prepare(GET_TRANSACTIONS_SINCE);
 		this.getAccountCustomers = session.prepare(GET_ALL_ACCOUNT_CUSTOMERS);
@@ -153,6 +158,12 @@ public class BankDao {
 		
 		return this.processResultSet(rs.getUninterruptibly(), null);
 	}
+	public List<Transaction> getTransactionsCTGDESC(String mrchntctgdesc) {
+
+		ResultSetFuture rs = this.session.executeAsync(this.getTransactionByMsgDesc.bind(mrchntctgdesc));
+
+		return this.processResultSet(rs.getUninterruptibly(), null);
+	}
 
 	public void insertAccount(Account account) {
 		accountMapper.saveAsync(account);
@@ -176,13 +187,50 @@ public class BankDao {
 
 		Transaction t = new Transaction();
 
-		t.setAmount(row.getDouble("amount"));
+
 		t.setAccountNo(row.getString("account_no"));
-		t.setMerchant(row.getString("merchant"));
-		t.setLocation(row.getString("location"));
-		t.setTransactionId(row.getString("transaction_id"));
-		t.setTransactionTime(row.getTimestamp("transaction_time"));
+		t.setMerchant(row.getString("merchantname"));
+		t.setTransactionId(row.getString("tranid"));
+		t.setTransactionTime(row.getTimestamp("tranPostDt"));
 		t.setTags(row.getSet("tags", String.class));
+		t.setcardNum(row.getString("cardNum"));
+		t.setaccountType(row.getString("account_type"));
+		t.setamountType(row.getString("amount_type"));
+		t.setAddress_type(row.getString("address_type"));
+		t.setAmount(row.getDouble("amount"));
+		t.setFirst_name(row.getString("first_name"));
+		t.setFull_name(row.getString("full_name"));
+		t.setLast_name(row.getString("last_name"));
+		t.setmiddle_name(row.getString("middle_name"));
+		t.setCity(row.getString("city"));
+		t.setCountry_code(row.getString("country_code"));
+		t.setCountry_name(row.getString("country_name"));
+		t.setAddress_line1(row.getString("address_line1"));
+		t.setAddress_line2(row.getString("address_line2"));
+		t.setstate_abbreviation(row.getString("state_abbreviation"));
+		t.setzipcode(row.getString("zipcode"));
+		t.setzipcode4(row.getString("zipcode4"));
+		t.setmerchantCtgyDesc(row.getString("merchantCtgyDesc"));
+		t.setmerchantCtygCd(row.getString("merchantCtygCd"));
+		t.setorigTranAmt(row.getString("origTranAmt"));
+		t.setreferenceKeyType(row.getString("referenceKeyType"));
+		t.setreferenceKeyValue(row.getString("referenceKeyValue"));
+		t.settranAmt(row.getDouble("tranAmt"));
+		t.settranCd(row.getString("tranCd"));
+		t.settranDescription(row.getString("tranDescription"));
+		t.settranExpDt(row.getString("tranExpDt"));
+		t.settranInitDt(row.getTimestamp("tranInitDt"));
+		t.settranStat(row.getString("tranStat"));
+		t.settranType(row.getString("tranType"));
+		t.settransRsnCd(row.getString("transRsnCd"));
+		t.settransRsnDesc(row.getString("transRsnDesc"));
+		t.settransRsnType(row.getString("transRsnType"));
+		t.settransRespCd(row.getString("transRespCd"));
+		t.settransRsnDesc(row.getString("transRespDesc"));
+		t.settransRespType(row.getString("transRespType"));
+		t.setBucket(row.getString("bucket"));
+		t.setCustomers(row.getSet("customers", String.class));
+		t.setLocation(row.getString("location"));
 
 		return t;
 	}

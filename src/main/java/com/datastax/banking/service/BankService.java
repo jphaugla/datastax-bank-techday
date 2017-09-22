@@ -8,6 +8,7 @@ import com.datastax.banking.model.Customer;
 import com.datastax.banking.model.Transaction;
 import com.datastax.demo.utils.PropertyHelper;
 
+
 public class BankService {
 
 	private static String contactPointsStr = PropertyHelper.getProperty("contactPoints", "localhost");
@@ -33,7 +34,13 @@ public class BankService {
 	}
 
 	public List<Transaction> getTransactions(String accountId) {
-		
+
+
 		return dao.getTransactions(accountId);
 	}
+    public List<Transaction> getTransactionsCTGDESC(String mrchntctgdesc) {
+
+
+        return dao.getTransactionsCTGDESC(mrchntctgdesc);
+    }
 }

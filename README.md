@@ -24,21 +24,21 @@ The api for the webservices are
 
 Get Customer 
 
-	http://{server}:8080/datastax-digital-banking/rest/get/customer/{customer_id}
+	http://{server}:8080/datastax-bank-techday/rest/get/customer/{customer_id}
 
-	http://localhost:8080/datastax-digital-banking/rest/get/customer/1000111
+	http://localhost:8080/datastax-bank-techday/rest/get/customer/1000111
 
 Get Customer Accounts
 	
-	http://{server}:8080/datastax-digital-banking/rest/get/accounts/{customer_id}
+	http://{server}:8080/datastax-bank-techday/rest/get/accounts/{customer_id}
 	
-	http://localhost:8080/datastax-digital-banking/rest/get/accounts/1000111
+	http://localhost:8080/datastax-bank-techday/rest/get/accounts/1000111
 	
 Get Transaction For Account 
 	
-	http://{server}:8080/datastax-digital-banking/rest/get/transactions/{account_id}
+	http://{server}:8080/datastax-bank-techday/rest/get/transactions/{account_id}
 	
-	http://localhost:8080/datastax-digital-banking/rest/get/transactions/eeceed17-5d7e-40de-be07-bdc2f075feb6
+	http://localhost:8080/datastax-bank-techday/rest/get/transactions/eeceed17-5d7e-40de-be07-bdc2f075feb6
 	
 
 To remove the tables and the schema, run the following.

@@ -50,7 +50,7 @@ public class BankDao {
 
 	private static final String GET_CUSTOMER_ACCOUNTS = "select * from " + accountsTable + " where customer_id = ?";
 	private static final String GET_TRANSACTIONS_BY_MSGDESC = "select * from " + transactionTable +
-			" where solr_query = 'merchantctgydesc:? = ?";
+			" where solr_query = ?";
 	private static final String GET_TRANSACTIONS_BY_ID = "select * from " + transactionTable + " where account_no = ?";
 
 	private static final String GET_TRANSACTIONS_BY_TIMES = "select * from " + transactionTable
@@ -84,7 +84,7 @@ public class BankDao {
 		this.session = cluster.connect();
 
 		this.getTransactionByAccountId = session.prepare(GET_TRANSACTIONS_BY_ID);
-		this.getTransactionByMsgDesc = session.prepare(GET_TRANSACTIONS_BY_ID);
+		this.getTransactionByMsgDesc = session.prepare(GET_TRANSACTIONS_BY_MSGDESC);
 		this.getTransactionBetweenTimes = session.prepare(GET_TRANSACTIONS_BY_TIMES);
 		this.getTransactionSinceTime = session.prepare(GET_TRANSACTIONS_SINCE);
 		this.getAccountCustomers = session.prepare(GET_ALL_ACCOUNT_CUSTOMERS);
@@ -160,9 +160,12 @@ public class BankDao {
 	}
 	public List<Transaction> getTransactionsCTGDESC(String mrchntctgdesc) {
 
-		ResultSetFuture rs = this.session.executeAsync(this.getTransactionByMsgDesc.bind(mrchntctgdesc));
+		//  String solrquery = "merchantctgydesc:" + mrchntctgdesc;
+		String cql = "select * from bank.transaction where solr_query = 'merchantctgydesc:" + mrchntctgdesc + "'";
 
-		return this.processResultSet(rs.getUninterruptibly(), null);
+		ResultSet resultSet = this.session.execute(cql);
+
+		return processResultSet(resultSet,null);
 	}
 
 	public void insertAccount(Account account) {

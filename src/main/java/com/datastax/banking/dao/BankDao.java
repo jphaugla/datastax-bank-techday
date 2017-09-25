@@ -18,6 +18,8 @@ import com.datastax.banking.data.BankGenerator;
 import com.datastax.banking.model.Account;
 import com.datastax.banking.model.Customer;
 import com.datastax.banking.model.Transaction;
+import com.datastax.banking.model.Email;
+import com.datastax.banking.model.Phone;
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
@@ -132,7 +134,18 @@ public class BankDao {
 			}
 		}
 	}
+    public List<Transaction> getTransactionsForCCNoDateSolr(String ccNo, Set<String> tags, DateTime from, DateTime to) {
+        String fromDate = from.toString("yyyy-MM-dd");
+        String toDate = to.toString("yyyy-MM-dd");
+        String restDate = "T00:00:00Z";
+        String cql = "select * from bank.transaction where solr_query = "
+                + "'cardnum:" + ccNo + " AND tranpostdt:[" + fromDate + restDate + " TO " + toDate + restDate + "]' limit  100";
+        logger.debug(cql);
 
+        ResultSet resultSet = this.session.execute(cql);
+
+        return processResultSet(resultSet, tags);
+    }
 	public void insertTransactionAsync(Transaction transaction) {
 
 		checkBucketForTransaction(transaction);
@@ -186,6 +199,71 @@ public class BankDao {
 		return customerMapper.get(customerId);
 	}
 
+	public List<Customer> getCustomerByPhone(String phoneString) {
+
+		String cql = "select * from bank.customer where solr_query = '{!tuple}phone_numbers.phone_number:" + phoneString + "'";
+
+		ResultSet resultSet = this.session.execute(cql);
+
+		return processCustResultSet(resultSet);
+	}
+
+    public List<Customer> getCustomerByFullNamePhone(String Fullname, String phoneString) {
+
+        String cql = "select * from bank.customer where solr_query = " +
+                "'full_name:" + Fullname + " AND {!tuple}phone_numbers.phone_number:" + phoneString + "'";
+
+        ResultSet resultSet = this.session.execute(cql);
+
+        return processCustResultSet(resultSet);
+    }
+
+    public List<Customer> getCustomerByEmail(String emailString) {
+
+        String cql = "select * from bank.customer where solr_query = '{!tuple}email_address.email_address:" + emailString + "'";
+
+        ResultSet resultSet = this.session.execute(cql);
+
+        return processCustResultSet(resultSet);
+    }
+
+	private Customer	rowToCustomer(Row row) {
+		Customer c = new Customer();
+
+		c.setCustomerId(row.getString("customer_id"));
+		c.setAddress_line1(row.getString("address_line1"));
+		c.setAddress_line2(row.getString("address_line2"));
+		c.setAddress_type(row.getString("address_type"));
+		c.setbill_pay_enrolled(row.getString("bill_pay_enrolled"));
+		c.setCity(row.getString("city"));
+		c.setCountry_code(row.getString("country_code"));
+		c.setcreated_by(row.getString("created_by"));
+		c.setcreated_datetime(row.getTimestamp("created_datetime"));
+		c.setcustomer_nbr(row.getString("customer_nbr"));
+		c.setcustomer_origin_system(row.getString("customer_origin_system"));
+		c.setcustomer_status(row.getString("customer_status"));
+		c.setcustomer_type(row.getString("customer_type"));
+		c.setdate_of_birth(row.getString("date_of_birth"));
+		c.setEmail_address(row.getList("email_address",Email.class));
+		c.setFirstName(row.getString("first_name"));
+		c.setfull_name(row.getString("full_name"));
+		c.setgender(row.getString("gender"));
+		c.setgovernment_id(row.getString("government_id"));
+		c.setgovernment_id_type(row.getString("government_id_type"));
+		c.setLast_name(row.getString("last_name"));
+		c.setlast_updated(row.getTimestamp("last_updated"));
+		c.setlast_updated_by(row.getString("last_updated_by"));
+		c.setmiddle_name(row.getString("middle_name"));
+		c.setPhone_numbers(row.getList("phone_numbers",Phone.class));
+		c.setprefix(row.getString("prefix"));
+		c.setquery_helper_column(row.getString("query_helper_column"));
+		c.setstate_abbreviation(row.getString("state_abbreviation"));
+		c.setzipcode(row.getString("zipcode"));
+		c.setzipcode4(row.getString("zipcode4"));
+		c.setCustaccounts(row.getSet("custaccounts",String.class));
+		return c;
+
+	}
 	private Transaction rowToTransaction(Row row) {
 
 		Transaction t = new Transaction();
@@ -284,6 +362,17 @@ public class BankDao {
 		return transactions;
 	}
 
+	private List<Customer> processCustResultSet(ResultSet resultSet) {
+		List<Row> rows = resultSet.all();
+		List<Customer> customers = new ArrayList<Customer>();
+
+		for (Row row : rows) {
+
+			Customer customer = rowToCustomer(row);
+			customers.add(customer);
+		}
+		return customers;
+	}
 	public List<Account> getCustomerAccounts(String customerId) {
 		ResultSet results = session.execute(getCustomerAccounts.bind(customerId));
 		

@@ -1,5 +1,6 @@
 package com.datastax.banking.webservice;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +42,60 @@ public class BankingWS {
 		
 		return Response.status(Status.OK).entity(customer).build();
 	}
-	
+
+	@GET
+	@Path("/get/customerByPhone/{phoneString}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCustomerByPhone(@PathParam("phoneString") String phoneString) {
+
+		List<Customer> customers = bankService.getCustomerByPhone(phoneString);
+
+		return Response.status(Status.OK).entity(customers).build();
+	}
+	@GET
+	@Path("/get/getcctransactions/{creditcardno}/{from}/{to}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCCTransactions(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate,
+	@PathParam("to") String toDate) {
+		DateTime from = DateTime.now();
+		DateTime to = DateTime.now();
+		try {
+			from = new DateTime(inputDateFormat.parse(fromDate));
+			to = new DateTime(inputDateFormat.parse(toDate));
+		} catch (ParseException e) {
+			String error = "Caught exception parsing dates " + fromDate + "-" + toDate;
+
+			logger.error(error);
+			return Response.status(Status.BAD_REQUEST).entity(error).build();
+		}
+
+		List<Transaction> result = bankService.getTransactionsForCCNoDateSolr(ccNo, null, from, to);
+		logger.info("Returned response");
+		return Response.status(Status.OK).entity(result).build();
+	}
+
+
+
+	@GET
+	@Path("/get/customerByFullNamePhone/{fullName}/{phoneString}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCustomerByFullNamePhone(@PathParam("fullName") String fullName,
+											   @PathParam("phoneString") String phoneString) {
+
+		List<Customer> customers = bankService.getCustomerByFullNamePhone(fullName,phoneString);
+
+		return Response.status(Status.OK).entity(customers).build();
+	}
+
+	@GET
+	@Path("/get/customerByEmail/{emailString}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCustomerByEmail(@PathParam("emailString") String emailString) {
+
+		List<Customer> customers = bankService.getCustomerByEmail(emailString);
+
+		return Response.status(Status.OK).entity(customers).build();
+	}
 	@GET
 	@Path("/get/accounts/{customerid}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -69,5 +124,6 @@ public class BankingWS {
 
 		return Response.status(Status.OK).entity(transactions).build();
 	}
+
 	
 }

@@ -22,7 +22,7 @@ To use the web service run
 	
 The api for the webservices are 
 
-Get Customer 
+Get Transactions for a Customer
 
 	http://{server}:8080/datastax-bank-techday/rest/get/customer/{customer_id}
 
@@ -34,12 +34,33 @@ Get Customer Accounts
 	
 	http://localhost:8080/datastax-bank-techday/rest/get/accounts/1000111
 	
-Get Transaction For Account 
+Get Transactions For Account 
 	
 	http://{server}:8080/datastax-bank-techday/rest/get/transactions/{account_id}
 	
 	http://localhost:8080/datastax-bank-techday/rest/get/transactions/eeceed17-5d7e-40de-be07-bdc2f075feb6
+
+Get Customers by email - email string can have wildcards
 	
+	http://{server}:8080/datastax-bank-techday/rest/get/customerByEmail/{phoneString}
+
+	http://localhost:8080/datastax-bank-techday/rest/get/customerByEmail/100011*
+
+Get Customers by phone number - phone string can have wildcards
+	
+	http://{server}:8080/datastax-bank-techday/rest/get/customerByPhone/{phoneString}
+
+	http://localhost:8080/datastax-bank-techday/rest/get/customerByPhone/100011*
+
+Get Customers by full name and phone number - both strings can have wildcards
+
+	http://{server}:8080/datastax-bank-techday/rest/get/customerByFullNamePhone/{fullName}/{phoneString}/
+	http://localhost:8080/datastax-bank-techday/rest/get/customerByFullNamePhone/*Jason*/100011*/
+
+Get Customers by credit card number (wildcards work) start and end transaction date
+
+	http://{server}:8080/datastax-bank-techday/rest/get/getcctransactions/{cardnum}/{fromDate}/{toDate}/
+	http://localhost:8080/datastax-bank-techday/rest/get/getcctransactions/5a4e5d9e-56c6-41bd-855a-3c38884be07f/20170925/20180101/
 
 To remove the tables and the schema, run the following.
 

@@ -3,7 +3,7 @@ package com.datastax.banking.model;
 import com.datastax.driver.mapping.annotations.UDT;
 
 @UDT(name = "email", keyspace = "bank")
-class Email {
+public class Email {
     private String email_type;
     private String email_address;
     private String email_status;

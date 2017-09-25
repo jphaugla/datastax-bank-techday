@@ -3,7 +3,7 @@ package com.datastax.banking.model;
 import com.datastax.driver.mapping.annotations.UDT;
 
 @UDT(name = "phone", keyspace = "bank")
-class Phone {
+public class Phone {
     private String phone_type;
     private String phone_number;
     public String getPhone_type() {

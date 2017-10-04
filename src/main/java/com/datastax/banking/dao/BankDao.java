@@ -134,7 +134,7 @@ public class BankDao {
 			}
 		}
 	}
-    public List<Transaction> getTransactionsForCCNoDateSolr(String ccNo, Set<String> tags, DateTime from, DateTime to) {
+    public List<Transaction> getTransactionsForCCNoDateSolr(String ccNo,Set<String> tags, DateTime from, DateTime to) {
         String fromDate = from.toString("yyyy-MM-dd");
         String toDate = to.toString("yyyy-MM-dd");
         String restDate = "T00:00:00Z";

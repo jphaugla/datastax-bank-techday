@@ -2,13 +2,12 @@ package com.datastax.banking.webservice;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.jws.WebService;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -69,11 +68,47 @@ public class BankingWS {
 			return Response.status(Status.BAD_REQUEST).entity(error).build();
 		}
 
-		List<Transaction> result = bankService.getTransactionsForCCNoDateSolr(ccNo, null, from, to);
+		List<Transaction> result = bankService.getTransactionsForCCNoDateSolr(ccNo,null, from, to);
 		logger.info("Returned response");
 		return Response.status(Status.OK).entity(result).build();
 	}
 
+	@POST
+	@Path("/put/addTag/{transactionID}/{tag}")
+//	@Path("post")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_HTML)
+	public String addTag(@PathParam("transactionID") String transactionID,@PathParam("tag") String tag) {
+		String error = "In addTag " + transactionID + " and " + tag;
+
+		logger.error(error);
+		return error;
+	}
+
+
+	@GET
+	@Path("/get/getcctransactionsTag/{creditcardno}/{from}/{to}/{tag}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCCTransactions(@PathParam("creditcardno") String ccNo, @PathParam("from") String fromDate,
+									  @PathParam("to") String toDate, @PathParam("tag") String tagstring) {
+		DateTime from = DateTime.now();
+		DateTime to = DateTime.now();
+		try {
+			from = new DateTime(inputDateFormat.parse(fromDate));
+			to = new DateTime(inputDateFormat.parse(toDate));
+		} catch (ParseException e) {
+			String error = "Caught exception parsing dates " + fromDate + "-" + toDate;
+
+			logger.error(error);
+			return Response.status(Status.BAD_REQUEST).entity(error).build();
+		}
+		Set<String> tags = new HashSet<String>();
+		tags.add(tagstring);
+
+		List<Transaction> result = bankService.getTransactionsForCCNoDateSolr(ccNo,tags, from, to);
+		logger.info("Returned response");
+		return Response.status(Status.OK).entity(result).build();
+	}
 
 
 	@GET

@@ -1,5 +1,6 @@
 package com.datastax.banking.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
@@ -64,6 +65,10 @@ public class BankService {
 		transactions = dao.getTransactionsForCCNoDateSolr(ccNo, tags, from, to);
 
 		return transactions;
+	}
+
+	public void addTag(String accountNo, String trandate, String transactionID, String tag, String operation) {
+		dao.addTag(accountNo,trandate, transactionID,tag,operation);
 	}
 
 	public List<Transaction> getTransactionsCTGDESC(String mrchntctgdesc) {

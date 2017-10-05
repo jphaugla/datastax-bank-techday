@@ -1,5 +1,6 @@
 package com.datastax.banking.webservice;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
@@ -72,17 +73,37 @@ public class BankingWS {
 		logger.info("Returned response");
 		return Response.status(Status.OK).entity(result).build();
 	}
+	@POST
+	@Path("posttag")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	public String postTagMethod(@FormParam("accountNo") String accountNo, @FormParam("trandate") String trandate,
+								@FormParam("transactionID") String transactionID,
+								@FormParam("tag") String tag) {
+		String msg = "Tag to " + tag + " where accountNo=" + accountNo + " trandate=" + trandate +
+						" transactionid=" + transactionID;
+		bankService.addTag(accountNo,trandate,transactionID,tag,"+");
+		return "<h2>Updated " + msg + "</h2>";
+	}
+	@POST
+	@Path("posttagRemove")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	public String postTagRemoveMethod(@FormParam("accountNo") String accountNo, @FormParam("trandate") String trandate,
+								@FormParam("transactionID") String transactionID,
+								@FormParam("tag") String tag) {
+		String msg = "Remove Tag " + tag + " where accountNo=" + accountNo + " trandate=" + trandate +
+				" transactionid=" + transactionID;
+		bankService.addTag(accountNo,trandate,transactionID,tag,"-");
+		return "<h2>Updated " + msg + "</h2>";
+	}
 
 	@POST
-	@Path("/put/addTag/{transactionID}/{tag}")
-//	@Path("post")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("post")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_HTML)
-	public String addTag(@PathParam("transactionID") String transactionID,@PathParam("tag") String tag) {
-		String error = "In addTag " + transactionID + " and " + tag;
-
-		logger.error(error);
-		return error;
+	public String postMethod(@FormParam("name") String name) {
+		return "<h2>Hello, " + name + "</h2>";
 	}
 
 

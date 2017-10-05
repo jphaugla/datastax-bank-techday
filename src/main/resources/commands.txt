@@ -1,1 +1,0 @@
-bin/dsetool create_core aib.transactions generateResources=true reindex=true coreOptions=rt.yaml

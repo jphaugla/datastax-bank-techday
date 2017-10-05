@@ -130,6 +130,6 @@ transRespType  text,
 	customers set<text>, 
 	tags set<text>, 
 	location text,
-	PRIMARY KEY ((account_no), tranPostDt)
+	PRIMARY KEY ((account_no), tranPostDt,tranId)
 )WITH CLUSTERING  order by (tranPostDt desc); 
 

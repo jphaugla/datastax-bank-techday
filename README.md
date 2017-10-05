@@ -1,4 +1,4 @@
-Digital Banking
+Datastax Bank Techday
 ========================
 
 To create the schema, run the following

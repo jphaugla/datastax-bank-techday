@@ -92,10 +92,10 @@ To create DSE Search environment, run the following in cqlsh.
 
 Resources in src/main/resources/
 
-	queries.txt       - cql queries on the customer table 
-	trans_queries.txt - cql queries on the transaction table 
-	createSolr.cql    - create solr core with cql
-    	copyToCSV.cql     - copy all table to csv files (run from main directory for output to go in export folder) 	
+    queries.txt       - cql queries on the customer table 
+    trans_queries.txt - cql queries on the transaction table 
+    createSolr.cql    - create solr core with cql
+    copyToCSV.cql     - copy all table to csv files (run from main directory for output to go in export folder) 	
 
 Resources in src/main/api/
 

@@ -1,0 +1,23 @@
+// -          Account Number or Card Number
+//  this is cql without solr
+select account_no,tranid,cardnum
+from bank.transaction
+where account_no = '4626b219-a324-4ad5-89f1-a9a0d114fb78';
+//
+select account_no,tranid,cardnum
+from bank.transaction
+where solr_query  = 'cardnum:bccfcec5-9837-403d-9d18-26cad571125e';
+// -          Description
+select account_no,tranid,merchantctgydesc
+from bank.transaction
+where solr_query = 'merchantctgydesc:"Grocery Stores"';
+// 
+// -          Transaction Date (range)
+select tranpostdt,account_no,tranid,cardnum
+from bank.transaction
+where solr_query = 'tranpostdt:[2017-08-26T00:00:00Z TO 2017-09-29T00:00:00Z]';
+
+// -          Merchant
+select merchantname,tranpostdt
+from bank.transaction
+where solr_query = 'merchantname:"Cub Foods"';

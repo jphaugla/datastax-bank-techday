@@ -91,22 +91,18 @@ To create DSE Search environment, run the following in cqlsh.
 		,cardNum;
 
 Resources in src/main/resources/
-	queries.txt       - cql queries on the customer table 
-	trans_queries.txt - cql queries on the transaction table 
-	createSolr.cql    - create solr core with cql
-	copyToCSV.cql     - copy all table to csv files (run from main directory for output to go in export folder) 	
+    queries.txt       - cql queries on the customer table 
+    trans_queries.txt - cql queries on the transaction table 
+    createSolr.cql    - create solr core with cql
+    copyToCSV.cql     - copy all table to csv files (run from main directory for output to go in export folder) 	
 
 Resources in src/main/api/
-	addTag.html    - add tag to a transaction by opening this file from browser
-	removeTag.html - remove tag from a transaction by opening this file from browser
-	addTag.sh      - add tag to a transaction using curl command
-	removeTag.sh   - remove tag from a transaction using curl command
+    addTag.html    - add tag to a transaction by opening this file from browser
+    removeTag.html - remove tag from a transaction by opening this file from browser
+    addTag.sh      - add tag to a transaction using curl command
+    removeTag.sh   - remove tag from a transaction using curl command
 
 scripts in src/main/scripts/  (all of these must be run from root directory)
-	compileSetup.sh - compile and run including creating customers and accounts and transactions
-	runTrans.sh - compile and run without creating customers and accounts (only transactions)
-	top100.sh  - put top 100 records to sharing directory from export directory for each csv 
-
-
-
-	
+    compileSetup.sh - compile and run including creating customers and accounts and transactions
+    runTrans.sh - compile and run without creating customers and accounts (only transactions)
+    top100.sh  - put top 100 records to sharing directory from export directory for each csv 

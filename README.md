@@ -62,6 +62,11 @@ Get Customers by credit card number (wildcards work) start and end transaction d
 	http://{server}:8080/datastax-bank-techday/rest/get/getcctransactions/{cardnum}/{fromDate}/{toDate}/
 	http://localhost:8080/datastax-bank-techday/rest/get/getcctransactions/5a4e5d9e-56c6-41bd-855a-3c38884be07f/20170925/20180101/
 
+Get Customers by credit card number (wildcards work) start and end transaction date with particular TAG
+
+	http://{server}:8080/datastax-bank-techday/rest/get/getcctransactionsTag/{cardnum}/{fromDate}/{toDate}/{tag}/
+	http://localhost:8080/datastax-bank-techday/rest/get/getcctransactionsTag/5a4e5d9e-56c6-41bd-855a-3c38884be07f/20170925/20180101/Work
+
 To remove the tables and the schema, run the following.
 
     mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaTeardown"

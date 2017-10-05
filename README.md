@@ -90,25 +90,23 @@ To create DSE Search environment, run the following in cqlsh.
 		,merchantCtgyDesc
 		,cardNum;
 
-Some queries below on customer table.
-	
-	select customer_id,full_name from bank.customer where customer_id = '1084545';
-	select customer_id,full_name from bank.customer where solr_query = 'last_name:84545';
-	select customer_id,full_name from bank.customer where solr_query = 'last_name:8454*';
-	select customer_id,full_name,government_id, email_address from bank.customer where solr_query = 'government_id:*4545';
-	select customer_id,full_name,email_address from bank.customer where solr_query = '{!tuple}email_address.email_type:Home'; 
-	select customer_id,full_name,email_address,phone_numbers from bank.customer where solr_query = '{!tuple}email_address.email_address:*24541';
-	select customer_id,full_name,phone_numbers from bank.customer where solr_query = '{!tuple}phone_numbers.phone_number:*14540h';
-	select customer_id,full_name,address_line1,address_line2,city,state_abbreviation,zipcode from bank.customer where solr_query = 'address_line1:*14543';
-	select customer_id,full_name,phone_numbers from bank.customer where solr_query = 'full_name:Jason* AND {!tuple}phone_numbers.phone_number:*14540w';
-	select customer_id,custaccounts from bank.customer where solr_query = 'custaccounts:"44ba4d82-6f5b-4381-9f3e-ccee0e89099f"';
+Resources in src/main/resources/
+	queries.txt       - cql queries on the customer table 
+	trans_queries.txt - cql queries on the transaction table 
+	createSolr.cql    - create solr core with cql
+	copyToCSV.cql     - copy all table to csv files (run from main directory for output to go in export folder) 	
 
-Some queries below on transactions table.
+Resources in src/main/api/
+	addTag.html    - add tag to a transaction by opening this file from browser
+	removeTag.html - remove tag from a transaction by opening this file from browser
+	addTag.sh      - add tag to a transaction using curl command
+	removeTag.sh   - remove tag from a transaction using curl command
+
+scripts in src/main/scripts/  (all of these must be run from root directory)
+	compileSetup.sh - compile and run including creating customers and accounts and transactions
+	runTrans.sh - compile and run without creating customers and accounts (only transactions)
+	top100.sh  - put top 100 records to sharing directory from export directory for each csv 
+
+
+
 	
-	select account_no,tranid,cardnum from bank.transaction where account_no = '4626b219-a324-4ad5-89f1-a9a0d114fb78';
-	select account_no,tranid,cardnum
-	from bank.transaction where solr_query  = 'cardnum:bccfcec5-9837-403d-9d18-26cad571125e';
-	select account_no,tranid,merchantctgydesc from bank.transaction where solr_query = 'merchantctgydesc:"Grocery Stores"';
-	select tranpostdt,account_no,tranid,cardnum from bank.transaction where solr_query = 'tranpostdt:[2017-08-26T00:00:00Z TO 2017-09-29T00:00:00Z]';
-	select merchantname,tranpostdt from bank.transaction where solr_query = 'merchantname:"Cub Foods"';
-		

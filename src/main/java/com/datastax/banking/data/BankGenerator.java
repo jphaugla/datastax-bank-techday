@@ -290,7 +290,7 @@ public class BankGenerator {
             "Discount Stores", "Drug Stores and Pharmacies", "Department Stores", "Supermarkets", "Mail Order Houses",
             "Wholesale Clubs", "Electronic Sales",
             "Direct Marketing – Catalog Merchant", "Miscellaneous Home Furnishing Specialty Stores",
-            "Grocery Stores", "Family Clothing Stores", "Grocery Stores", "Discount Stores", "Men’s and Women’s Clothing Stores",
+            "Grocery Stores", "Family Clothing Stores", "Grocery Stores", "Discount Stores", "Mens and Womens Clothing Stores",
             "Fast Food Restaurants",
             "Electronic Sales",
             "Lumber and Building Materials Stores",

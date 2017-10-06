@@ -286,16 +286,17 @@ public class BankGenerator {
             "5814", "5813");
 
     public static List<String> issuersCDdesc = Arrays.asList("Grocery Stores", "Grocery Stores",
-            "Discount Stores", "Misc. Food Stores – Convenience Stores and Specialty Markets",
+            "Discount Stores", "Misc Food Stores Convenience Stores and Specialty Markets",
             "Discount Stores", "Drug Stores and Pharmacies", "Department Stores", "Supermarkets", "Mail Order Houses",
             "Wholesale Clubs", "Electronic Sales",
-            "Direct Marketing – Catalog Merchant", "Miscellaneous Home Furnishing Specialty Stores",
-            "Grocery Stores", "Family Clothing Stores", "Grocery Stores", "Discount Stores", "Mens and Womens Clothing Stores",
+            "Direct Marketing Catalog Merchant", "Miscellaneous Home Furnishing Specialty Stores",
+            "Grocery Stores", "Family Clothing Stores", "Grocery Stores", "Discount Stores",
+			"Mens and Womens Clothing Stores",
             "Fast Food Restaurants",
             "Electronic Sales",
             "Lumber and Building Materials Stores",
-            "Book Stores", "Direct Marketing – Travel Related Arrangements Services",
-            "Fast Food Restaurants", "Drinking Places, Bars, Taverns, Cocktail lounges, Nightclubs and Discotheques");
+            "Book Stores", "Direct Marketing Travel Related Services",
+            "Fast Food Restaurants", "Drinking Places, Bars, Taverns, Cocktail lounges, Nightclubs and Discos");
 
 	public static List<String> notes = Arrays.asList("Shopping", "Shopping", "Shopping", "Shopping", "Shopping",
 			"Pharmacy", "HouseHold", "Shopping", "Household", "Shopping", "Tech", "Tech", "Diy", "Shopping", "Clothes",

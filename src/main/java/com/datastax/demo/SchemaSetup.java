@@ -11,5 +11,9 @@ public class SchemaSetup extends RunCQLFile {
 		SchemaSetup setup = new SchemaSetup("cql/create_schema.cql");
 		setup.internalSetup();
 		setup.shutdown();
+
+		SchemaSetup setupSolr = new SchemaSetup("cql/createSolr.cql");
+		setupSolr.internalSetup();
+		setupSolr.shutdown();
 	}
 }

@@ -17,7 +17,15 @@ select tranpostdt,account_no,tranid,cardnum
 from bank.transaction
 where solr_query = 'tranpostdt:[2017-08-26T00:00:00Z TO 2017-09-29T00:00:00Z]';
 
+select merchantname, merchantctygcd,merchantctgydesc
+from transaction
+where solr_query='merchantctgydesc:(Supermarkets OR Grocery)' limit 5
+
 // -          Merchant
 select merchantname,tranpostdt
 from bank.transaction
 where solr_query = 'merchantname:"Cub Foods"';
+
+//   add serveral AND statement and a sort
+SELECT * FROM bank.transaction
+WHERE solr_query = '{ "fq": "tranpostdt:[NOW-1YEAR TO *]","fq":"merchantname:Tesco","q": "merchantctgydesc:Grocery","sort" : "tranpostdt desc"}' limit 5;

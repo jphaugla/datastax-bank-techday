@@ -133,3 +133,34 @@ transRespType  text,
 	PRIMARY KEY ((account_no), tranPostDt,tranId)
 )WITH CLUSTERING  order by (tranPostDt desc); 
 
+create table if not exists account_st (
+customer_id int,
+account_no text,
+account_origin_system text,
+account_status text,
+account_type text,
+last_updated timestamp,
+last_updated_by text,
+PRIMARY KEY ((customer_id,account_no),last_updated)
+) WITH CLUSTERING order by (last_updated desc);
+
+create table if not exists customer_st (
+customer_id text,
+address_line1 text,
+address_line2 text,
+address_type text,
+bill_pay_enrolled text,
+city text,
+country_code text,
+customer_nbr text,
+customer_origin_system text,
+customer_status text,
+customer_type text,
+date_of_birth timestamp,
+email_address text,
+gender text,
+government_id text,
+government_id_type text,
+phone_numbers text,
+PRIMARY KEY (customer_id)
+) ;

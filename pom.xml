@@ -8,16 +8,21 @@
 	<version>0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+        <properties>
+           <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+           <dse.driver.version>1.6.7</dse.driver.version>
+        </properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.datastax.dse</groupId>
 			<artifactId>dse-java-driver-core</artifactId>
-			<version>1.4.0</version>
+			<version>${dse.driver.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.datastax.dse</groupId>
 			<artifactId>dse-java-driver-mapping</artifactId>
-			<version>1.4.0</version>
+			<version>${dse.driver.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -56,9 +61,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	 <properties>
-                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        </properties>
 
 	<build>
 		<plugins>

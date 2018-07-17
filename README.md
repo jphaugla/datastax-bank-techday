@@ -114,3 +114,6 @@ scripts in src/main/scripts/  (all of these must be run from root directory)
     compileSetup.sh - compile and run including creating customers and accounts and transactions
     runTrans.sh - compile and run without creating customers and accounts (only transactions)
     top100.sh  - put top 100 records to sharing directory from export directory for each csv 
+
+To run streaming:
+    

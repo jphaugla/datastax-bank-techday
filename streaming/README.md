@@ -49,6 +49,7 @@ Once downloaded you will need to extract the file. It will create a folder/direc
 
 verify the correct kafka in path from brew
 	`which kafka-topics` should return "/usr/local/bin/kafka-topics"
+double check the link is correct in /usr/local/bin for desired version
 	`ls -lrt /usr/local/bin/kafka-topics` should point to "../Cellar/kafka/1.1.0/bin/kafka-topics"
 
 
@@ -75,7 +76,9 @@ Start local copy of zookeeper and Kafka
 
 ####  on Mac
 
+this starts zookeeper
   * zkServer start
+this starts kafka
   * `kafka-server-start  /usr/local/etc/kafka/server.properties`
 
 ####  on Ubuntu
@@ -139,26 +142,14 @@ This assumes you already have Kafka and DSE up and running and configured as in 
   * From the root directory of the project start the producer app
   
 	`sbt producer/run`
+
+choose which producer to run (will get 3 of them)
     
   
   * From the root directory of the project start the consumer app
 
-	`./runConsumer.sh   (if using DSE embedded 5.0.x)`
-	`./runConsumer2.sh  (if using standalone spark 2.0.2)`
-	`./runConsumer2.full.sh  (if using standalone spark 2.0.2 with fat jar)`
+	`./runConsumer.sh   
 
-  * After running for some time can run aggregate to create sensor_full_summary
-
-	`./runAggregate.sh   (if using DSE embedded 5.0.x)`
-	`./runAggregate2.sh  (if using standalone spark 2.0.2)`
-	`./runAggregate2.full.sh  (if using standalone spark 2.0.2 with fat jar)`
-
-  * Can write sensor_full_summary back to a full_summary kafka topic
-
-	`./runWriteBack.sh   (if using DSE embedded 5.0.x)`
-	`./runWriteBack2.sh  (if using standalone spark 2.0.2)`
-	`./runWriteBack2.full.sh  (if using standalone spark 2.0.2 with fat jar)`
-  
 ####  PROBLEMS with build.sbt
 Needed to clean out jar files on spark and dse dependencies
 

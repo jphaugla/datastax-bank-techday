@@ -60,15 +60,9 @@ class SparkJob extends Serializable {
      .load()
 
   
-    println(s"after reading cust")
-    cust_raw_df.printSchema()
+  println(s"after reading cust")
+  cust_raw_df.printSchema()
 
-//  this second dataframe allows to select limited number of columns
-//   wish could do in one step but can't get it to work
-   val cust_df = cust_raw_df.select ( "customer_id","address_line1","address_line2","address_type", "city","country_code","date_of_birth","email_address","full_name",
-		"state_abbreviation","zipcode","zipcode4")
-    println(s"after select cust")
-    cust_df.printSchema()
 
   val acct_raw_df = sparkSession
      .read
@@ -77,14 +71,14 @@ class SparkJob extends Serializable {
      .load()
 
   
-    println(s"after reading acct")
-    acct_raw_df.printSchema()
+  println(s"after reading acct")
+  acct_raw_df.printSchema()
 
 
-    println(s"before reading kafka stream after runJob")
+  println(s"before reading kafka stream after runJob")
 
-    import sparkSession.implicits._
-    val lines = sparkSession.readStream
+  import sparkSession.implicits._
+  val lines = sparkSession.readStream
       .format("kafka")
       .option("subscribe", "customer")
       .option("failOnDataLoss", "false")
@@ -99,8 +93,8 @@ class SparkJob extends Serializable {
     lines.printSchema()
     println(s"finished reading kafka stream ")
 
-    val cols = List("customer_id","address_line1","address_line2","address_type","bill_pay_enrolled","city","country_code","customer_nbr","customer_origin_system","customer_status","customer_type","date_of_birth","email_address","gender","government_id","government_id_type","phone_numbers","time_stamp")
-    val df =
+  val cols = List("customer_id","address_line1","address_line2","address_type","bill_pay_enrolled","city","country_code","customer_nbr","customer_origin_system","customer_status","customer_type","date_of_birth","email_address","gender","government_id","government_id_type","phone_numbers","time_stamp")
+  val df =
       lines.map { line =>
         val payload = line._1.split(";")
         val dob_ts = Timestamp.valueOf(payload(11))
@@ -121,9 +115,6 @@ class SparkJob extends Serializable {
     println(df.isStreaming)
     println(s"after isStreaming ")
 //   join static customer with streaming df
-/*   this worked but remaining conditions is just oo ugly
-    val joined_df = df.join(cust_df, "customer_id")
-*/
 
 
     val transDS = sparkSession.readStream

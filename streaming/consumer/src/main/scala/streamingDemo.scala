@@ -15,6 +15,7 @@ import org.apache.spark.sql.functions._
 import com.datastax.spark.connector.cql.CassandraConnector
 import com.datastax.spark.connector.streaming._
 import org.apache.spark.sql.streaming.{OutputMode, Trigger}
+import org.apache.spark.sql.types.{IntegerType,StringType}
 
 
 
@@ -63,17 +64,14 @@ class SparkJob extends Serializable {
   println(s"after reading cust")
   cust_raw_df.printSchema()
 
-
   val acct_raw_df = sparkSession
      .read
      .format("org.apache.spark.sql.cassandra")
      .options(Map( "table" -> "account", "keyspace" -> "bank"))
      .load()
 
-  
   println(s"after reading acct")
   acct_raw_df.printSchema()
-
 
   println(s"before reading kafka stream after runJob")
 
@@ -93,27 +91,6 @@ class SparkJob extends Serializable {
     lines.printSchema()
     println(s"finished reading kafka stream ")
 
-  val cols = List("customer_id","address_line1","address_line2","address_type","bill_pay_enrolled","city","country_code","customer_nbr","customer_origin_system","customer_status","customer_type","date_of_birth","email_address","gender","government_id","government_id_type","phone_numbers","time_stamp")
-  val df =
-      lines.map { line =>
-        val payload = line._1.split(";")
-        val dob_ts = Timestamp.valueOf(payload(11))
-        (payload(0), payload(1),
-	 payload(2), payload(3),
-	 payload(4), payload(5),
-	 payload(6), payload(7),
-	 payload(8), payload(9),
-	 payload(10), dob_ts,
-	 payload(12), payload(13),
-	 payload(14), payload(15),
-	 payload(16), line._2
-         )
-      }.toDF(cols: _*)
-    println(s"after toDF ")
-    df.printSchema()
-    println(s"after printschema ")
-    println(df.isStreaming)
-    println(s"after isStreaming ")
 //   join static customer with streaming df
 
 
@@ -150,66 +127,56 @@ class SparkJob extends Serializable {
       }.toDF(tran_cols: _*)
     println(s"after tran_df ")
     tran_df.printSchema()
-//  this writes successfully to the console-hurray!
-    df.createOrReplaceTempView("c_st")
+//  prepare the dataframes to be used in spark sql command with tempview
     cust_raw_df.createOrReplaceTempView("c")
     tran_df.createOrReplaceTempView("t_st")
     acct_raw_df.createOrReplaceTempView("a")
 
-/*  works
     val joined_df = sparkSession.sql ("""  
-          select a.customer_id
-	  ,count(*) as trans_count 
+          select t.customer_id
+          ,t.trans_cnt 
+          ,1 as changed_flag
+          ,t.time_stamp
+          from (select a.customer_id
+          ,t_st.time_stamp
+	  ,count(*) trans_cnt
 	  from t_st 
 	  inner join a
 	  on t_st.account_no=a.account_no
-          left join c_st
-	  on c_st.customer_id = a.customer_id
-          group by a.customer_id
-	 """); 
-*/
-    val joined_df = sparkSession.sql ("""  
-          select a.customer_id
-	  ,case when c_st.customer_id is null or 
-		c_st.address_line1<>a.address_line1
-		then 1 else 0 end changed_flag
-	  ,t_st.time_stamp
-	  from t_st 
-	  inner join a
-	  on t_st.account_no=a.account_no
-          left join c_st
-	  on c_st.customer_id = a.customer_id
+          group by a.customer_id,t_st.time_stamp ) t
 	 """); 
     println(s"after join ")
     joined_df.printSchema()
 
-/*
     val windowedCount = joined_df
-      .groupBy( $"customer_id",
-        window($"time_stamp", "15 seconds")
-      )
-        .count()
-*/
-    val windowedCount = joined_df
-      .groupBy( window($"time_stamp", "15 seconds")
-      )
-        .count()
+      .groupBy( $"customer_id",window($"time_stamp", "1 minute"))
+      .agg(sum($"trans_cnt").alias("trans_cnt"),sum($"changed_flag").alias("changed_cust_cnt"))
+
     println(s"after window ")
     windowedCount.printSchema()
-/*
-    val query = joined_df.writeStream
-      .option("checkpointLocation", "/tmp")
+    
+    val clean_df = windowedCount.selectExpr ( "customer_id", "window.start","Cast(trans_cnt as int) as trans_cnt","Cast(changed_cust_cnt as int) as changed_cust_cnt")
+    println(s"after clean_df ")
+    clean_df.printSchema()
+  
+    val query = clean_df.writeStream
+      .option("checkpointLocation", "/tmp/checkit")
       .format("org.apache.spark.sql.cassandra")
       .option("keyspace", "bank")
-      .option("table", "account_fraud")
-      .outputMode(OutputMode.Update)
+      .option("table", "cust_fraud")
+      .outputMode(OutputMode.Complete)
       .start()
-    println (s"after write to  account_fraud")
+/*   test write to console
+     val query = joined_df.writeStream
+      .outputMode("complete")
+      .queryName("table")
+      .format("console")
+      .start()
 */
 
-    // Group the data by window and word and compute the count of each group
+    println (s"after write to  cust_fraud")
 
-//      query.awaitTermination()
-      sparkSession.stop()
+    query.awaitTermination()
+    sparkSession.stop()
   }
 }

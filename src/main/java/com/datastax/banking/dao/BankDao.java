@@ -50,6 +50,7 @@ public class BankDao {
 
 	private static String transactionTable = keyspaceName + ".transaction";
 	private static String accountsTable = keyspaceName + ".account";
+	private static String customerChangeTable = keyspaceName + ".cust_change";
 
 	private static final String GET_CUSTOMER_ACCOUNTS = "select * from " + accountsTable + " where customer_id = ?";
 	private static final String GET_TRANSACTIONS_BY_MSGDESC = "select * from " + transactionTable +
@@ -63,7 +64,8 @@ public class BankDao {
 	private static final String GET_ALL_ACCOUNT_CUSTOMERS = "select * from " + accountsTable;
 	private static final String ADD_TRANSACTION_TAG = "update " + transactionTable +
 			" set tags = ? where account_no = ? and tranPostDt = ? and tranId = ?";
-	
+	private static final String ADD_CUSTOMER_CHANGE = "insert into " + customerChangeTable +
+			" (account_no, customer_id, last_updated ) VALUES ( ? , ? , ?)";
 	private SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 	
 	private PreparedStatement getTransactionByAccountId;
@@ -71,6 +73,7 @@ public class BankDao {
 	private PreparedStatement getTransactionBetweenTimes;
 	private PreparedStatement getTransactionSinceTime;
 	private PreparedStatement addTransactionTag;
+	private PreparedStatement addCustomerChange;
 	private PreparedStatement getCustomerAccounts;
 	private PreparedStatement getAccountCustomers;
 	private PreparedStatement getLatestTransactionByCCno;
@@ -97,6 +100,7 @@ public class BankDao {
 		this.getAccountCustomers = session.prepare(GET_ALL_ACCOUNT_CUSTOMERS);
 		this.getCustomerAccounts = session.prepare(GET_CUSTOMER_ACCOUNTS);
 		this.addTransactionTag = session.prepare(ADD_TRANSACTION_TAG);
+		this.addCustomerChange = session.prepare(ADD_CUSTOMER_CHANGE);
 		
 		customerMapper = new MappingManager(this.session).mapper(Customer.class);
 		customerMapper.setDefaultSaveOptions(saveNullFields(false));
@@ -194,10 +198,13 @@ public class BankDao {
 	public void addTagPreparedNoWork(String accountNo, Timestamp trandate, String transactionID, String tag) {
 		String tagSet = " tags + {'" + tag + "'} ";
 		logger.info("writing addTag update statement with tags set to "+ tagSet);
-		ResultSetFuture rs = this.session.executeAsync(this.addTransactionTag.bind(tagSet,accountNo,
-																					trandate,transactionID));
+		ResultSetFuture rs = this.session.executeAsync(this.addTransactionTag.bind(tagSet,accountNo,trandate,transactionID));
 
 		//  set tags = ? where account_no = ? and tranPostDt = ? and tranId = ?";
+	}
+        public void addCustChange(String accountNo,String custid, String last_update) {
+		logger.info("writing addCustChange update statement");
+		ResultSetFuture rs = this.session.executeAsync(this.addCustomerChange.bind(accountNo,custid,last_update));
 	}
 	public void addTag(String accountNo, String trandate, String transactionID, String tag, String operation) {
 		String cql = "update " + transactionTable + " set tags = tags " + operation + "{'" + tag

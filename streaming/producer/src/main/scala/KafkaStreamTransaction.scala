@@ -53,7 +53,8 @@ class produceTranMessages(brokers: String, topic: String, numTransactions : Int,
           cols(0).toString()
         }
         val tranpostdt = {
-          cols(1).toString()
+	    event_time.toString()
+//          cols(1).toString()
         }
         val tranid = {
           cols(2).toString()

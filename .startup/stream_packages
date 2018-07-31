@@ -1,0 +1,3 @@
+cd streaming
+sbt consumer/package
+sbt producer/package

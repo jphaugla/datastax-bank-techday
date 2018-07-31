@@ -50,22 +50,47 @@ class SparkJob extends Serializable {
 
   def runJob() = {
 
-  val custCol = List("account_no","customer_id","last_updated")
+  val custCol = List("customer_id","address_line1","address_line2","address_type",
+		"city","country_code","date_of_birth","email_address","full_name",
+		"state_abbreviation","zipcode","zipcode4")
 
-  val cust_chg_df = sparkSession
+  val cust_raw_df = sparkSession
      .read
      .format("org.apache.spark.sql.cassandra")
-     .options(Map( "table" -> "cust_change", "keyspace" -> "bank"))
+     .options(Map( "table" -> "customer", "keyspace" -> "bank"))
      .load()
 
   
-  println(s"after reading cust_chg")
-  cust_chg_df.printSchema()
+  println(s"after reading cust")
+  cust_raw_df.printSchema()
 
+  val acct_raw_df = sparkSession
+     .read
+     .format("org.apache.spark.sql.cassandra")
+     .options(Map( "table" -> "account", "keyspace" -> "bank"))
+     .load()
+
+  println(s"after reading acct")
+  acct_raw_df.printSchema()
 
   println(s"before reading kafka stream after runJob")
 
   import sparkSession.implicits._
+  val lines = sparkSession.readStream
+      .format("kafka")
+      .option("subscribe", "customer")
+      .option("failOnDataLoss", "false")
+      .option("kafka.bootstrap.servers", "localhost:9092")
+      .option("startingOffsets", "earliest")
+      .option("includeTimestamp", true)
+      .load()
+      .selectExpr("CAST(value AS STRING)","CAST(timestamp as Timestamp)",
+                  "CAST(key as STRING)")
+      .as[(String, Timestamp, String)] 
+
+    lines.printSchema()
+    println(s"finished reading kafka stream ")
+
 //   join static customer with streaming df
 
 
@@ -87,7 +112,7 @@ class SparkJob extends Serializable {
     val tran_cols =  List("account_no","tranpostdt","tranid","amount","bucket","cardnum","tranamt","trancd","trandescription","transrsncd","transrsndesc","transrsntype","transtat","trantype","time_stamp")
 
     val tran_df =
-        transDS.map { line =>
+        lines.map { line =>
         val payload = line._1.split(";")
         val tranpostdt = Timestamp.valueOf(payload(1))
         (payload(0), tranpostdt,
@@ -103,28 +128,34 @@ class SparkJob extends Serializable {
     println(s"after tran_df ")
     tran_df.printSchema()
 //  prepare the dataframes to be used in spark sql command with tempview
-    cust_chg_df.createOrReplaceTempView("c")
+    cust_raw_df.createOrReplaceTempView("c")
     tran_df.createOrReplaceTempView("t_st")
+    acct_raw_df.createOrReplaceTempView("a")
 
     val joined_df = sparkSession.sql ("""  
-          select c.customer_id
+          select t.customer_id
+          ,t.trans_cnt 
+          ,1 as changed_flag
+          ,t.time_stamp
+          from (select a.customer_id
           ,t_st.time_stamp
-          ,1 as trans_cnt
+	  ,count(*) trans_cnt
 	  from t_st 
-	  inner join c
-	  on t_st.account_no=c.account_no
+	  inner join a
+	  on t_st.account_no=a.account_no
+          group by a.customer_id,t_st.time_stamp ) t
 	 """); 
     println(s"after join ")
     joined_df.printSchema()
 
     val windowedCount = joined_df
-      .groupBy( $"customer_id",window($"time_stamp", "10 seconds"))
-      .agg(sum($"trans_cnt").alias("trans_cnt"))
+      .groupBy( $"customer_id",window($"time_stamp", "1 minute"))
+      .agg(sum($"trans_cnt").alias("trans_cnt"),sum($"changed_flag").alias("changed_cust_cnt"))
 
     println(s"after window ")
     windowedCount.printSchema()
     
-    val clean_df = windowedCount.selectExpr ( "customer_id", "window.start","Cast(trans_cnt as int) as trans_cnt")
+    val clean_df = windowedCount.selectExpr ( "customer_id", "window.start","Cast(trans_cnt as int) as trans_cnt","Cast(changed_cust_cnt as int) as changed_cust_cnt")
     println(s"after clean_df ")
     clean_df.printSchema()
   
@@ -133,19 +164,19 @@ class SparkJob extends Serializable {
       .format("org.apache.spark.sql.cassandra")
       .option("keyspace", "bank")
       .option("table", "cust_fraud")
-      .outputMode(OutputMode.Update)
+      .outputMode(OutputMode.Complete)
       .start()
-
 /*   test write to console
      val query = joined_df.writeStream
-      .outputMode(OutputMode.Complete)
+      .outputMode("complete")
       .queryName("table")
+      .format("console")
       .start()
 */
+
     println (s"after write to  cust_fraud")
 
     query.awaitTermination()
-    println(s"after awaitTermination ")
     sparkSession.stop()
   }
 }

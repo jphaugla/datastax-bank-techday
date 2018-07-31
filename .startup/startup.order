@@ -1,1 +1,6 @@
+mvn
+sbt
+kafka
+packages
+stream_packages
 create_and_load

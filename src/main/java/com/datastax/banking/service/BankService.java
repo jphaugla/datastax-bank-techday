@@ -1,6 +1,5 @@
 package com.datastax.banking.service;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
@@ -70,10 +69,11 @@ public class BankService {
 	public void addTag(String accountNo, String trandate, String transactionID, String tag, String operation) {
 		dao.addTag(accountNo,trandate, transactionID,tag,operation);
 	}
+	public void addCustChange(String accountNo,String custid, String chgdate) {
+		dao.addCustChange(accountNo,custid,chgdate);
+        }
 
 	public List<Transaction> getTransactionsCTGDESC(String mrchntctgdesc) {
-
-
-        return dao.getTransactionsCTGDESC(mrchntctgdesc);
-    }
+                return dao.getTransactionsCTGDESC(mrchntctgdesc);
+        }
 }

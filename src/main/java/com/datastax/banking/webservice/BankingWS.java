@@ -1,6 +1,5 @@
 package com.datastax.banking.webservice;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
@@ -98,6 +97,19 @@ public class BankingWS {
 		return "<h2>Updated " + msg + "</h2>";
 	}
 
+	@POST
+	@Path("custChange")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_HTML)
+	public String postTagMethod(@FormParam("accountNo") String accountNo, 
+								@FormParam("customerId") String custID,
+@FormParam("chgdate") String chgdate )
+								 {
+		String msg = "Customer change where custID= " + custID  + " accountNo=" + accountNo + " chgdate=" + chgdate ;
+
+		bankService.addCustChange(accountNo,custID,chgdate);
+		return "<h2>Updated " + msg + "</h2>";
+	}
 	@POST
 	@Path("post")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)

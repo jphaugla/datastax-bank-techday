@@ -51,6 +51,16 @@ custaccounts set<text>,
   AND compression = {'sstable_compression' : ''}
   AND caching = {'keys':'NONE', 'rows_per_partition':'NONE'};
 
+create table if not exists cust_change(
+	account_no text,
+	customer_id text,  
+        last_updated text,
+	PRIMARY KEY((account_no),customer_id,last_updated)
+) WITH compaction= { 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
+  AND compression = {'sstable_compression' : ''}
+  AND caching = {'keys':'NONE', 'rows_per_partition':'NONE'};
+
+
 create table if not exists account(
 	customer_id text,  
 	account_no text,
@@ -84,7 +94,6 @@ create table if not exists account(
 ) WITH compaction= { 'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
   AND compression = {'sstable_compression' : ''}
   AND caching = {'keys':'NONE', 'rows_per_partition':'NONE'};
-
 
 create table if not exists transaction(
 	account_no text,
@@ -164,3 +173,11 @@ government_id_type text,
 phone_numbers text,
 PRIMARY KEY (customer_id)
 ) ;
+
+create table if not exists cust_fraud (
+customer_id text,
+start timestamp,
+trans_cnt int,
+changed_cust_cnt int,
+PRIMARY KEY (customer_id,start)
+) WITH CLUSTERING order by (start desc);

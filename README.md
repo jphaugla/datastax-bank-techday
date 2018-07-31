@@ -16,6 +16,8 @@ You can use the following parameters to change the default no of transactions, c
 RealTime transactions
 When all historical transactions are loaded, the process will start creating random transactions for todays date and time. If you wish just to run real time transactions specify -DnoOfDays=0.
 
+To do the streaming, look at the README.md file in ./streaming
+
 To use the web service run 
 
 	mvn jetty:run
@@ -102,7 +104,7 @@ Resources in src/main/resources/
     createSolr.cql    - create solr core with cql
     copyToCSV.cql     - copy all table to csv files (run from main directory for output to go in export folder) 	
 
-Resources in src/main/api/
+Resources in src/main/resources/api/
 
     addTag.html    - add tag to a transaction by opening this file from browser
     removeTag.html - remove tag from a transaction by opening this file from browser

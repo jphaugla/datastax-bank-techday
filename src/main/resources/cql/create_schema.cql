@@ -146,7 +146,7 @@ create table if not exists cust_fraud (
 customer_id text,
 start timestamp,
 trans_cnt int,
-changed_cust_cnt int,
-PRIMARY KEY (customer_id,start)
-) WITH CLUSTERING order by (start desc)
+trans_amount double,
+PRIMARY KEY (start,customer_id)
+) WITH CLUSTERING order by (customer_id desc)
   AND  default_time_to_live = 86400;

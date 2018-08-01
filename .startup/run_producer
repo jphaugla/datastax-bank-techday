@@ -1,0 +1,2 @@
+cd streaming
+nohup sbt producer/run > ~/producerRun.log &

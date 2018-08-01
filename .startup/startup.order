@@ -3,6 +3,7 @@ sbt
 kafka
 stream_packages
 create_tables
-load_transaction
+load_transactions
 jetty_run
-
+run_producer
+run_consumer

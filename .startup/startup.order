@@ -1,6 +1,8 @@
 mvn
 sbt
 kafka
-packages
 stream_packages
-create_and_load
+create_tables
+load_transaction
+jetty_run
+

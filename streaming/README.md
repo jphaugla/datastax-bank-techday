@@ -152,12 +152,12 @@ This assumes you already have Kafka and DSE up and running and configured as in 
      this adds account number each 30 seconds and demonstrates static 
      cassandra table is actually refreshed on each time window to pull
      more customers with attribute changes
+     
+     row should be added to bank.cust_change with each API call
 
-  * To visualize results use spark-sql to allow the sorting of the results
-     dse spark-sql
-         spark-sql> select customer_id, start,trans_cnt
-		    from bank.cust_fraud
-		    order by start;
+  * To visualize results use cust_fraud.
+          `select customer_id, start,trans_cnt from bank.cust_fraud`
+
 627619a1	2018-07-31 22:39:30	2
 486f2572	2018-07-31 22:39:40	2
 627619a1	2018-07-31 22:39:40	2
@@ -172,6 +172,7 @@ This assumes you already have Kafka and DSE up and running and configured as in 
      then in 40 second cycle 627619a1 and 486f2572 
      afterward, all three are in the cycle.  This is due to the API call
      simulating cust_change 
+
 ####  PROBLEMS with build.sbt
 Needed to clean out jar files on spark and dse dependencies
 

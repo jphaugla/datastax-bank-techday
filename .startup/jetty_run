@@ -1,0 +1,5 @@
+echo 'Starting webservice on 8081'
+nohup mvn jetty:run -DcontactPoints=node0 -Djetty.port=8081 > ~/webservice.log &
+
+sleep 2
+echo 'Finished setting up jetty'

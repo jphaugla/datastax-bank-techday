@@ -180,4 +180,5 @@ start timestamp,
 trans_cnt int,
 changed_cust_cnt int,
 PRIMARY KEY (customer_id,start)
-) WITH CLUSTERING order by (start desc);
+) WITH CLUSTERING order by (start desc)
+  AND  default_time_to_live = 86400;

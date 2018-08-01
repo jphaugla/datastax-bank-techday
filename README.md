@@ -1,7 +1,7 @@
 Datastax Bank Techday
 ========================
 
-To create the schema, run the following
+To create the schema, run the following.  Note:  if search is not enabled the create index will fail but since it is last step, it is ok to terminate job and cassandr schema will be in place.
 
 	mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetup" -DcontactPoints=localhost
 
@@ -73,31 +73,8 @@ To remove the tables and the schema, run the following.
 
     mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaTeardown"
     
-To create DSE Search environment, run the following in cqlsh.
 
-    CREATE SEARCH INDEX if not exists
-	ON bank.customer
-	with columns address_line1
-                ,city
-                ,email_address
-                ,first_name
-                ,full_name
-                ,last_name
-                ,middle_name
-		,government_id
-		,government_id_type
-                ,phone_numbers
-                ,state_abbreviation
-                ,zipcode
-		,custaccounts;
-    CREATE SEARCH INDEX if not exists
-	ON bank.transaction
-	with columns tranPostDt
-                ,merchantName
-		,merchantCtgyDesc
-		,cardNum;
-
-Resources in src/main/resources/
+Resources in src/main/resources/cql
 
     queries.txt       - cql queries on the customer table 
     trans_queries.txt - cql queries on the transaction table 
@@ -110,6 +87,7 @@ Resources in src/main/resources/api/
     removeTag.html - remove tag from a transaction by opening this file from browser
     addTag.sh      - add tag to a transaction using curl command
     removeTag.sh   - remove tag from a transaction using curl command
+    addCustChange.sh - use API to add a row to the bank.cust_change table.  The cust_change table is joined to transaction stream to flag transactions with recent customer change
 
 scripts in src/main/scripts/  (all of these must be run from root directory)
 
@@ -117,5 +95,3 @@ scripts in src/main/scripts/  (all of these must be run from root directory)
     runTrans.sh - compile and run without creating customers and accounts (only transactions)
     top100.sh  - put top 100 records to sharing directory from export directory for each csv 
 
-To run streaming:
-    

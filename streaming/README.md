@@ -1,6 +1,8 @@
 # datstax-bank-techday
 
-The purpose of this demo is to demonstrate a Kafka/Spark/Scala structured streaming example.  This has scala programs to create customer, account, and transaction load as well as a spark streaming job to join these streams, handle alerting, and write streaming data to DSE.
+This demo simulates a bank looking for customers having transactions after having a change in their customer information such as an email change, phone number change, or and address change.  For simplicity, this demo outputs as soon as a customer with an address change has transactions.  In a real-world use case, a threshold of transactions based on dollar amount and volume would be needed. 
+
+The purpose of this demo is to demonstrate a Kafka/Spark/Scala structured streaming.  This has a scala producer program to write transactions to a kafka topic.  Additionaly, a consumer spark structured streaming job reads a stream from the kafka topic, joins the stream to a cassandra table and writes the results to a cassandra table.  
 
 In order to run this demo, It is assumed that you have the following installed and available on your local system.
 
@@ -96,8 +98,6 @@ moving forward, manage zookeeper on ubuntu with "service zookeeper status"
 Create the topic we will use for the demo
 
 ###  on mac, command is kafka-topics (sh suffix not needed)
-  * `kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic account`
-  * `kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic customer`
   * `kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partitions 1 --topic transaction`
 
 Validate the topic was created. 
@@ -109,20 +109,18 @@ Validate the topic was created.
 
 Delete the topic. (Note: The server.properties file must contain `delete.topic.enable=true` for this to work)
 
-  * `kafka-topics.sh --zookeeper localhost:2181 --delete --topic customer`
+  * `kafka-topics.sh --zookeeper localhost:2181 --delete --topic transaction`
   
 Show all of the messages in a topic from the beginning
 
-  * `kafka-console-consumer.sh --zookeeper localhost:2181 --topic customer --from-beginning`
+  * `kafka-console-consumer.sh --zookeeper localhost:2181 --topic transaction --from-beginning`
   
 #Getting Started with Local DSE/Cassandra
 
 see README in github home directory for this information
+this streaming demo builds on having the tables created and the jetty server running for the API call from the home README.md
 
 ###To build the demo
-
-    to do standalone spark switch the build.sbt to build.sbt.spark2
-     otherwise, this is set up for embedded datastax
 
   * Navigate to the root directory of the project where you downloaded
   * Build the Producer with this command:
@@ -143,13 +141,37 @@ This assumes you already have Kafka and DSE up and running and configured as in 
   
 	`sbt producer/run`
 
-choose which producer to run (will get 3 of them)
     
   
   * From the root directory of the project start the consumer app
 
 	`./runConsumer.sh   
 
+  * To demo the asset, generate rows in the cust_change table using:
+	./src/main/resources/api/addCustChange.sh
+     this adds account number each 30 seconds and demonstrates static 
+     cassandra table is actually refreshed on each time window to pull
+     more customers with attribute changes
+
+  * To visualize results use spark-sql to allow the sorting of the results
+     dse spark-sql
+         spark-sql> select customer_id, start,trans_cnt
+		    from bank.cust_fraud
+		    order by start;
+627619a1	2018-07-31 22:39:30	2
+486f2572	2018-07-31 22:39:40	2
+627619a1	2018-07-31 22:39:40	2
+486f2572	2018-07-31 22:39:50	2
+56d18578	2018-07-31 22:39:50	1
+627619a1	2018-07-31 22:39:50	2
+486f2572	2018-07-31 22:40:00	2
+56d18578	2018-07-31 22:40:00	1
+627619a1	2018-07-31 22:40:00	2
+ 
+     notice how in 30 second cycle only 627619a1 appears
+     then in 40 second cycle 627619a1 and 486f2572 
+     afterward, all three are in the cycle.  This is due to the API call
+     simulating cust_change 
 ####  PROBLEMS with build.sbt
 Needed to clean out jar files on spark and dse dependencies
 

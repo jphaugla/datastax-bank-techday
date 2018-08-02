@@ -3,6 +3,7 @@ sbt
 kafka
 fix_spark_perms
 stream_packages
+hugo
 node1
 node2
 create_tables

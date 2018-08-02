@@ -1,0 +1,3 @@
+#fix spark permissions
+chmod -R 775 /mnt/ephemeral/cassandra/spark/
+chown -R ds_user:cassandra /mnt/ephemeral/cassandra/spark

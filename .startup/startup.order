@@ -1,6 +1,7 @@
 mvn
 sbt
 kafka
+fix_spark_perms
 stream_packages
 create_tables
 load_transactions

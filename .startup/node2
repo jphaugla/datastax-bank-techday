@@ -1,0 +1,1 @@
+ssh -oStrictHostKeyChecking=no -i /home/ds_user/.ssh/id_rsa ds_user@node2 "cd /tmp && git clone https://github.com/jphaugla/datastax-bank-techday

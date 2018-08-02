@@ -3,6 +3,8 @@ sbt
 kafka
 fix_spark_perms
 stream_packages
+node1
+node2
 create_tables
 load_transactions
 jetty_run

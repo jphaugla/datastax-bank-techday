@@ -43,7 +43,7 @@ class SparkJob extends Serializable {
   val sparkSession =
     SparkSession.builder
       .appName("kafka2Spark2DSE")
-      .config("spark.cassandra.connection.host", "localhost")
+      .config("spark.cassandra.connection.host", "node0")
       .getOrCreate()
 
   println(s"after build spark session")

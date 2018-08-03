@@ -19,7 +19,7 @@ The proofshop is built around the concept of DS Bank, a hypothetical financial i
 
 ##  Presentation
 
-The presentation to be used with the workshop can be found here: https://docs.google.com/presentation/d/1xtMxR3j4Fm-yzCSc52Gna-tGnjIoOPP78cW1L9bKWWw/edit#slide=id.p5
+The presentation to be used with the workshop can be found here: https://drive.google.com/open?id=1lK--68IkNX5GWG2Kxjshwtlv-evdOP57
 
 ## Hands-On Exercises
 

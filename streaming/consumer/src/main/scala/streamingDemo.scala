@@ -43,7 +43,7 @@ class SparkJob extends Serializable {
   val sparkSession =
     SparkSession.builder
       .appName("kafka2Spark2DSE")
-      .config("spark.cassandra.connection.host", "node0")
+      .config("spark.cassandra.connection.host", "localhost")
       .getOrCreate()
 
   println(s"after build spark session")
@@ -73,7 +73,7 @@ class SparkJob extends Serializable {
       .format("kafka")
       .option("subscribe", "transaction")
       .option("failOnDataLoss", "false")
-      .option("kafka.bootstrap.servers", "node0:9092")
+      .option("kafka.bootstrap.servers", "localhost:9092")
       .option("startingOffsets", "earliest")
       .option("includeTimestamp", true)
       .load()
@@ -91,7 +91,7 @@ class SparkJob extends Serializable {
         val payload = line._1.split(";")
         val tranpostdt = Timestamp.valueOf(payload(1))
         (payload(0), tranpostdt,
-	 payload(2), payload(3),
+	 payload(2), payload(3).toDouble,
 	 payload(4), payload(5),
 	 payload(6), payload(7),
 	 payload(8), payload(9),
@@ -110,6 +110,7 @@ class SparkJob extends Serializable {
           select c.customer_id
           ,t_st.time_stamp
           ,1 as trans_cnt
+          ,t_st.amount 
 	  from t_st 
 	  inner join c
 	  on t_st.account_no=c.account_no
@@ -119,12 +120,12 @@ class SparkJob extends Serializable {
 
     val windowedCount = joined_df
       .groupBy( $"customer_id",window($"time_stamp", "10 seconds"))
-      .agg(sum($"trans_cnt").alias("trans_cnt"))
+      .agg(sum($"trans_cnt").alias("trans_cnt"),sum($"amount").alias("trans_amount"))
 
     println(s"after window ")
     windowedCount.printSchema()
     
-    val clean_df = windowedCount.selectExpr ( "customer_id", "window.start","Cast(trans_cnt as int) as trans_cnt")
+    val clean_df = windowedCount.selectExpr ( "customer_id", "window.start","Cast(trans_cnt as int) as trans_cnt","Cast(trans_amount as double) as trans_amount")
     println(s"after clean_df ")
     clean_df.printSchema()
   

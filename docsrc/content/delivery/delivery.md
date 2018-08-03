@@ -1,14 +1,14 @@
 ---
-title: Workshop Delivery
+title: Proofshop Delivery
 weight: 401
 menu:
   main:
-    parent: Workshop Delivery
+    parent: Proofshop Delivery
     identifier: delivery
     weight: 41
 ---
 
-## DSE Fraud Structured Streaming Delivery
+## DSE Fraud Structured Streaming Proofshop Delivery
 
 The structured streaming will have hands on interaction using a notebook queries to validate the streaming. The SE delivering the proofshop will switch between presenting from a deck, demoing the solution, and helping the workshop recipients through hands on exercises.
 

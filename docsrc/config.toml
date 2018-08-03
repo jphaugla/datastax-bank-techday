@@ -1,5 +1,5 @@
 languageCode = "en-us"
-title = "DSE Analytics Fraud Structured Streaming"
+title = "Fraud Structured Streaming Proofshop"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
@@ -8,7 +8,7 @@ baseUrl = "/"
 disableKinds = ["taxonomy","taxonomyTerm"]
 
 [params]
-	description = "DSE Analytics Fraud Structured Streaming"
+	description = "DSE Analytics Fraud Structured Streaming Proofshop"
 
 	logo = "images/asset-hub.svg"
 	favicon = "/images/asset-hub.png"

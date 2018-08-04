@@ -4,8 +4,9 @@ kafka
 fix_spark_perms
 stream_packages
 hugo
+jetty_run
+wait_abit
 create_tables
 load_transactions
-jetty_run
 run_producer
 run_consumer

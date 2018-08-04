@@ -5,8 +5,7 @@ fix_spark_perms
 stream_packages
 hugo
 jetty_run
-wait_abit
 create_tables
 load_transactions
-run_producer
-run_consumer
+#run_producer
+#run_consumer

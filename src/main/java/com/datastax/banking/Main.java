@@ -32,7 +32,7 @@ public class Main {
 
 	public Main() {
 
-		String contactPointsStr = PropertyHelper.getProperty("contactPoints", "localhost");
+		String contactPointsStr = PropertyHelper.getProperty("contactPoints", "node0");
 		String createStr = PropertyHelper.getProperty("create", "false");
 		String noOfCustomersStr = PropertyHelper.getProperty("noOfCustomers", "10000");
 		String noOfTransactionsStr = PropertyHelper.getProperty("noOfTransactions", "10000");

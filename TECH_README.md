@@ -1,6 +1,12 @@
 Datastax Bank Techday
 ========================
 
+NOTE:  This asset has been changed heavily for DataStax internal use in our Assethub.  All the nodenames have been changed to "node0".  For this to work outside of the Assethub, edit your /etc/hosts file to add this node0 line.
+
+#
+127.0.0.1   node0
+#
+
 To create the schema, run the following.  Note:  if search is not enabled the create index will fail but since it is last step, it is ok to terminate job and cassandr schema will be in place.
 
 	mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetup" -DcontactPoints=localhost

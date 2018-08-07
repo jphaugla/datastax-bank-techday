@@ -9,5 +9,5 @@ hugo
 jetty_run
 create_tables
 load_transactions
-#run_producer
+run_producer
 #run_consumer

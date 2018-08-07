@@ -12,3 +12,9 @@ CREATE SEARCH INDEX if not exists ON bank.customer with columns address_line1
                 ,zipcode
 		,custaccounts
 ;
+CREATE SEARCH INDEX if not exists ON bank.transaction with columns tranPostDt
+                ,merchantName
+                ,merchantCtgyDesc
+                ,cardNum
+;
+~ 

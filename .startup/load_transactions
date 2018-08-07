@@ -1,5 +1,5 @@
 echo 'Starting load data -> ~/loader.log'
-sudo -H -u wdeng bash -c 'nohup mvn exec:java -Dexec.mainClass="com.datastax.banking.Main" -DcontactPoints=node0 -DnoOfTransactions=10000000 -DnoOfCreditCards=100000 > ~/loader.log &'
+sudo -H -u ds_user bash -c 'nohup mvn exec:java -Dexec.mainClass="com.datastax.banking.Main" -DcontactPoints=node0 -DnoOfTransactions=10000000 -DnoOfCreditCards=100000 > ~/loader.log &'
 
 sleep 2
 echo 'Finished setting up loader'

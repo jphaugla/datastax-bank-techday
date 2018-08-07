@@ -1,6 +1,7 @@
 mvn
 sbt
 kafka
+change_git_owner
 fix_spark_perms
 package_producer
 package_consumer

@@ -1,0 +1,2 @@
+cd streaming
+sudo -H -u wdeng bash -c 'sbt producer/package'

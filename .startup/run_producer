@@ -1,2 +1,2 @@
 cd streaming
-nohup sbt producer/run > ~/producerRun.log &
+sudo -H -u wdeng bash -c 'nohup sbt producer/run > ~/producerRun.log &'

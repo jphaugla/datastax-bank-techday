@@ -2,7 +2,8 @@ mvn
 sbt
 kafka
 fix_spark_perms
-stream_packages
+package_producer
+package_consumer
 hugo
 jetty_run
 create_tables

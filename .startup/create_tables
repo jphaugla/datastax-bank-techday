@@ -1,2 +1,2 @@
 echo 'Building schema'
-mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetup" -DcontactPoints=node0
+sudo -H -u wdeng bash -c 'mvn clean compile exec:java -Dexec.mainClass="com.datastax.demo.SchemaSetup" -DcontactPoints=node0'

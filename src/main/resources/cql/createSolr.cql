@@ -17,4 +17,3 @@ CREATE SEARCH INDEX if not exists ON bank.transaction with columns tranPostDt
                 ,merchantCtgyDesc
                 ,cardNum
 ;
-~ 

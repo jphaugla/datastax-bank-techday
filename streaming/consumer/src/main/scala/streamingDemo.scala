@@ -130,7 +130,7 @@ class SparkJob extends Serializable {
     clean_df.printSchema()
   
     val query = clean_df.writeStream
-      .option("checkpointLocation", "/tmp/checkit")
+      .option("checkpointLocation", "dsefs://node0:5598/tmp/")
       .format("org.apache.spark.sql.cassandra")
       .option("keyspace", "bank")
       .option("table", "cust_fraud")

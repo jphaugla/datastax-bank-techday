@@ -74,7 +74,6 @@ class SparkJob extends Serializable {
       .option("subscribe", "transaction")
       .option("failOnDataLoss", "false")
       .option("kafka.bootstrap.servers", "localhost:9092")
-      .option("startingOffsets", "earliest")
       .option("includeTimestamp", true)
       .load()
       .selectExpr("CAST(value AS STRING)","CAST(timestamp as Timestamp)",

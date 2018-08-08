@@ -9,5 +9,6 @@ hugo
 jetty_run
 create_tables
 load_transactions
+workbooks
 #run_producer
 #run_consumer

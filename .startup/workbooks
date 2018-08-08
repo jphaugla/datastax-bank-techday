@@ -1,0 +1,18 @@
+#!/bin/sh
+
+echo "Configuring DSE Studio .."
+sed -i 's%baseDirectory: null%baseDirectory: /tmp/studio/dse-workshop-studio%g' /tmp/studio/conf/configuration.yaml
+sed -i 's%httpBindAddress: localhost%httpBindAddress: 0.0.0.0%g' /tmp/studio/conf/configuration.yaml
+sed -i 's%executionTimeoutMs: 0%executionTimeoutMs: 600000%g' /tmp/studio/conf/configuration.yaml
+cd /tmp/studio
+cp ../datastax-bank-techday/files/Structured_Streaming_Fraud_Proofshop_2018-08-08_22_03_19.studio-nb.tar .
+tar -zxf /tmp/Structured_Streaming_Fraud_Proofshop_2018-08-08_22_03_19.studio-nb.tar
+
+echo "Starting DSE Studio .."
+for pid in `ps -aef | grep [s]tudio-server | awk '{print $2}'`; do kill -9 $pid; done
+sleep 5
+
+rm -rf ~/.datastax_studio
+nohup /tmp/studio/bin/server.sh &
+
+echo "http://"`curl -s http://api.ipify.org`":9091"

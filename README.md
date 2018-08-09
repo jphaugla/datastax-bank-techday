@@ -1,5 +1,5 @@
-Datastax Bank Techday
-========================
+Fraud Structured Streaming Proofshop
+====================================
 
 This is a guide for how to use the Fraud Structured Streaming Proofshop brought to you by the DataStax field team.
 

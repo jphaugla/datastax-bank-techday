@@ -8,7 +8,7 @@ package_consumer
 hugo
 jetty_run
 create_tables
+run_consumer
+run_producer
 load_transactions
 workbooks
-#run_producer
-#run_consumer

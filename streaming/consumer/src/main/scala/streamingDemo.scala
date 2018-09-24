@@ -129,23 +129,27 @@ class SparkJob extends Serializable {
     println(s"after clean_df ")
     clean_df.printSchema()
   
-    val query = clean_df.writeStream
+    val fraud_query = clean_df.writeStream
       .format("org.apache.spark.sql.cassandra")
-      .option("checkpointLocation", "dsefs://node0:5598/checkpoint/")
+      .option("checkpointLocation", "dsefs://node0:5598/checkpoint/cust_fraud/")
       .option("keyspace", "bank")
       .option("table", "cust_fraud")
       .outputMode(OutputMode.Update)
       .start()
 
-/*   test write to console
-     val query = joined_df.writeStream
-      .outputMode(OutputMode.Complete)
-      .queryName("table")
-      .start()
-*/
     println (s"after write to  cust_fraud")
 
-    query.awaitTermination()
+    val trans_query = tran_df.writeStream
+      .format("org.apache.spark.sql.cassandra")
+      .option("checkpointLocation", "dsefs://node0:5598/checkpoint/trans/")
+      .option("keyspace", "bank")
+      .option("table", "stream_transaction")
+      .outputMode(OutputMode.Update)
+      .start()
+    println (s"after write to stream_transaction")
+
+    fraud_query.awaitTermination()
+    trans_query.awaitTermination()
     println(s"after awaitTermination ")
     sparkSession.stop()
   }

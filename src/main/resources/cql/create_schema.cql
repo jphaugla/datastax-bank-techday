@@ -142,6 +142,24 @@ transRespType  text,
 	PRIMARY KEY ((account_no), tranPostDt,tranId)
 )WITH CLUSTERING  order by (tranPostDt desc); 
 
+create table if not exists stream_transaction(
+	account_no text,
+	amount double,
+  cardNum text,
+tranamt  double,
+trancd  text,
+trandescription text,
+tranid text,
+tranpostdt  timestamp,
+transtat    text,
+trantype    text,
+transrsncd text,
+transrsndesc text,
+transrsntype text,
+bucket text,
+	PRIMARY KEY ((account_no), tranpostdt,tranid)
+)WITH CLUSTERING  order by (tranpostdt desc, tranid desc); 
+
 create table if not exists cust_fraud (
 customer_id text,
 start timestamp,

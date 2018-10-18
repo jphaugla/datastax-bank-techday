@@ -13,7 +13,12 @@ The Fraud Structured Streaming Proofshop is a targeted event to prove structured
 
 ### What is included?
 
-A Powerpoint presentation will walk the prospect through DSE Spark Structured Streaming and the use case.
+This asset includes the following:
+ - A Structured Streaming application that takes data from X and does XYZ.
+ - A Powerpoint presentation that walks users through DSE Spark Structured Streaming code and the use case
+ - Kafka
+ - Notebooks that show X Y and Z
+ - Web application on port 8081 that does X Y Z
 
 
 ### Business Take Aways
@@ -24,4 +29,6 @@ DataStax-powered solutions deliver a highly personalized, responsive, and consis
 
 ### Technical Take Aways
 
-Understand how spark structured streaming allows real-time decision making in an easy-to-create and easy-to-maintain Spark Dataset environment.  Paralleling the transition from RDDs to Datasets, streaming has gone from complex DStreams to easy-to-use Structured Streaming.  The combination of structured streaming with DataStax allows joining streams and cassandra tables to do real-time analytics.  Key technical note:  the stream receives a refreshed copy of any joined cassandra tables on each stream window refresh.
+Understand how spark structured streaming allows real-time decision making in an easy-to-create and easy-to-maintain Spark Dataset environment. Paralleling the transition from RDDs to Datasets, streaming has gone from complex DStreams to easy-to-use Structured Streaming. The combination of structured streaming with DataStax allows joining streams and cassandra tables to do real-time analytics.
+
+**Key technical note**:  the stream receives a refreshed copy of any joined cassandra tables on each stream window refresh.

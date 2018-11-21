@@ -1,7 +1,7 @@
 Fraud Structured Streaming Proofshop
 ====================================
 
-This is a guide for how to use the Fraud Structured Streaming Proofshop brought to you by the DataStax field team.  *WARNING*  Don't try to run this with the default m4.xlarge node type-it won't work!!!   Use an m4.2xlarge to be successful.
+This is a guide for how to use the Fraud Structured Streaming Proofshop brought to you by the DataStax field team.  *WARNING*  Don't try to run this with the default *m4.xlarge* node type-it won't work!!!   Use an *m4.2xlarge* to be successful.
 
 ### Motivation
 

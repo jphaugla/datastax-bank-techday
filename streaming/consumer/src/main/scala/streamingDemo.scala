@@ -108,15 +108,15 @@ val sens_df = transDS.withColumn("splitData", split(col("value"),";")).select(
                                         $"splitData".getItem(2).as("tranid"),
                                         $"splitData".getItem(3).cast("Double").as("amount"),
                                         $"splitData".getItem(4).as("bucket"),
-                                        $"splitData".getItem(5).as("cardnum")
+                                        $"splitData".getItem(5).as("cardnum"),
                                         $"splitData".getItem(6).cast("Double").as("tranamt"),
-                                        $"splitData".getItem(7).as("trancd")
-                                        $"splitData".getItem(8).as("trandescription")
-                                        $"splitData".getItem(9).as("transrsncd")
-                                        $"splitData".getItem(10).as("transrsndesc")
-                                        $"splitData".getItem(11).as("transrsntype")
-                                        $"splitData".getItem(12).as("transtat")
-                                        $"splitData".getItem(13).as("trantype")
+                                        $"splitData".getItem(7).as("trancd"),
+                                        $"splitData".getItem(8).as("trandescription"),
+                                        $"splitData".getItem(9).as("transrsncd"),
+                                        $"splitData".getItem(10).as("transrsndesc"),
+                                        $"splitData".getItem(11).as("transrsntype"),
+                                        $"splitData".getItem(12).as("transtat"),
+                                        $"splitData".getItem(13).as("trantype"),
                                         $"splitData".getItem(1).cast("Timestamp").as("time_stamp")
                                         )
     println(s"after tran_df ")

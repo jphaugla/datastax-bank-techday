@@ -102,7 +102,7 @@ class SparkJob extends Serializable {
          )
       }.toDF(tran_cols: _*)
 */
-val sens_df = transDS.withColumn("splitData", split(col("value"),";")).select(
+    val tran_df = transDS.withColumn("splitData", split(col("value"),";")).select(
                                         $"splitData".getItem(0).as("account_no"),
                                         $"splitData".getItem(1).cast("Timestamp").as("tranpostdt"),
                                         $"splitData".getItem(2).as("tranid"),

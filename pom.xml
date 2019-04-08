@@ -10,7 +10,7 @@
 
         <properties>
            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-           <dse.driver.version>1.6.7</dse.driver.version>
+           <dse.driver.version>1.8.1</dse.driver.version>
         </properties>
 
 	<dependencies>

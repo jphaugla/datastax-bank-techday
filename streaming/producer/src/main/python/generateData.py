@@ -39,7 +39,7 @@ while 1:
                         trantype = nextTrans[13]
         #   send to the link
         #       print 'this is serial %s' % (serial_number)
-                        print_string =  '%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % (account_no, tranid,amount,bucket,cardnum,tranamt,trancd,trandescription,transrsncd,transrsndesc,transrsntype,transtat,trantype)
+                        print_string =  '%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n' % (account_no,current_time,tranid,amount,bucket,cardnum,tranamt,trancd,trandescription,transrsncd,transrsndesc,transrsntype,transtat,trantype)
         #                print (print_string)
                         producer.send("transaction", print_string)
                         producer.flush()

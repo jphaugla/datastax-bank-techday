@@ -2,7 +2,6 @@ dseconfig
 restartdse
 node1
 node2
-hugo
 mvn
 sbt
 ntp

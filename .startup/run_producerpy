@@ -1,0 +1,1 @@
+sudo -H -u ds_user bash -c 'nohup ./streaming/producer/src/main/python/generateData.py > ~/producerRun.log &'
